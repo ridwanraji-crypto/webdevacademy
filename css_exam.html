@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Styling Mastery Exam | WebDev Academy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background: #f8f9fa;
+      color: #222;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(67,97,238,0.08);
+      padding: 2rem;
+    }
+    h1 {
+      color: #6a11cb;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .question {
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #eee;
+    }
+    .question h3 {
+      margin-bottom: 0.5rem;
+      color: #2575fc;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .options label {
+      background: #f0f0f0;
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .options input[type="radio"] {
+      margin-right: 0.7rem;
+    }
+    .options label.selected {
+      background: #e0e7ff;
+    }
+    .submit-btn {
+      background: #6a11cb;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 0.8rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 2rem auto 0 auto;
+      display: block;
+    }
+    .result {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .fail-list {
+      color: #e71d36;
+      margin-top: 1.5rem;
+    }
+    .pass {
+      color: #1dd1a1;
+      font-weight: bold;
+    }
+    .fail {
+      color: #e71d36;
+      font-weight: bold;
+    }
+    .progress-bar {
+      height: 18px;
+      background: #eee;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+    .progress-bar-inner {
+      height: 100%;
+      background: #6a11cb;
+      width: 0;
+      transition: width 0.3s;
+    }
+    #timer {
+      float: right;
+      font-weight: bold;
+      color: #e71d36;
+      font-size: 1.1em;
+      margin-top: -2.5rem;
+    }
+    @media (max-width: 600px) {
+      .container { padding: 1rem; }
+      h1 { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><i class="fas fa-file-alt"></i> CSS Styling Mastery Exam</h1>
+    <div id="timer"></div>
+    <div class="progress-bar"><div class="progress-bar-inner" id="progress"></div></div>
+    <form id="examForm"></form>
+    <button class="submit-btn" id="submitBtn">Submit Exam</button>
+    <div class="result" id="result"></div>
+  </div>
+  <script>
+    // 50 CSS Styling Mastery Questions
+    const questions = [
+      {
+        q: "What does CSS stand for?",
+        o: [
+          "Cascading Style Sheets",
+          "Creative Style Syntax",
+          "Computer Style Sheets",
+          "Colorful Style Sheets"
+        ],
+        a: 0
+      },
+      {
+        q: "Which property changes the text color of an element?",
+        o: ["color", "background-color", "font-color", "text-color"],
+        a: 0
+      },
+      {
+        q: "Which property sets the background color?",
+        o: ["background", "background-color", "color", "bgcolor"],
+        a: 1
+      },
+      {
+        q: "Which CSS selector targets all <p> elements?",
+        o: ["p", ".p", "#p", "*p"],
+        a: 0
+      },
+      {
+        q: "How do you select an element with the class 'highlight'?",
+        o: [".highlight", "#highlight", "highlight", "*highlight"],
+        a: 0
+      },
+      {
+        q: "How do you select an element with the id 'main'?",
+        o: ["#main", ".main", "main", "*main"],
+        a: 0
+      },
+      {
+        q: "Which property controls the size of text?",
+        o: ["font-size", "text-size", "size", "font-style"],
+        a: 0
+      },
+      {
+        q: "Which property adds space inside the border of an element?",
+        o: ["padding", "margin", "border-spacing", "spacing"],
+        a: 0
+      },
+      {
+        q: "Which property adds space outside the border of an element?",
+        o: ["margin", "padding", "border", "spacing"],
+        a: 0
+      },
+      {
+        q: "Which property sets the width of an element?",
+        o: ["width", "size", "length", "height"],
+        a: 0
+      },
+      {
+        q: "What is the default value of the position property?",
+        o: ["static", "relative", "absolute", "fixed"],
+        a: 0
+      },
+      {
+        q: "Which value of position allows an element to stay fixed when scrolling?",
+        o: ["fixed", "absolute", "relative", "sticky"],
+        a: 0
+      },
+      {
+        q: "Which property controls the stacking order of positioned elements?",
+        o: ["z-index", "order", "stack", "layer"],
+        a: 0
+      },
+      {
+        q: "Which unit is relative to the font-size of the element?",
+        o: ["em", "px", "%", "vw"],
+        a: 0
+      },
+      {
+        q: "Which unit is relative to the root element's font-size?",
+        o: ["rem", "em", "px", "%"],
+        a: 0
+      },
+      {
+        q: "Which CSS function allows you to perform calculations?",
+        o: ["calc()", "math()", "compute()", "sum()"],
+        a: 0
+      },
+      {
+        q: "Which CSS function lets you use custom properties?",
+        o: ["var()", "custom()", "property()", "set()"],
+        a: 0
+      },
+      {
+        q: "Which property applies a blur effect to an image?",
+        o: ["filter", "opacity", "blend-mode", "effect"],
+        a: 0
+      },
+      {
+        q: "Which property blends an element with the background?",
+        o: ["mix-blend-mode", "filter", "opacity", "blend"],
+        a: 0
+      },
+      {
+        q: "Which property creates a circular shape?",
+        o: ["clip-path", "border-radius", "shape", "circle"],
+        a: 0
+      },
+      {
+        q: "Which pseudo-class styles an element when hovered?",
+        o: [":hover", ":active", ":focus", ":visited"],
+        a: 0
+      },
+      {
+        q: "Which pseudo-element inserts content after an element?",
+        o: ["::after", "::before", ":after", ":content"],
+        a: 0
+      },
+      {
+        q: "Which media query targets print devices?",
+        o: ["@media print", "@media screen", "@media device", "@media paper"],
+        a: 0
+      },
+      {
+        q: "Which framework is known for utility-first CSS?",
+        o: ["Tailwind", "Bootstrap", "Bulma", "Foundation"],
+        a: 0
+      },
+      {
+        q: "Which preprocessor uses $ for variables?",
+        o: ["Sass", "Less", "Stylus", "PostCSS"],
+        a: 0
+      },
+      {
+        q: "Which property enables a flex container?",
+        o: ["display: flex", "flex: 1", "flex-direction", "flex-wrap"],
+        a: 0
+      },
+      {
+        q: "Which property enables a grid container?",
+        o: ["display: grid", "grid-template", "grid-area", "grid-row"],
+        a: 0
+      },
+      {
+        q: "Which property sets the direction of flex items?",
+        o: ["flex-direction", "flex-flow", "direction", "align-items"],
+        a: 0
+      },
+      {
+        q: "Which property aligns flex items along the main axis?",
+        o: ["justify-content", "align-items", "align-content", "flex-align"],
+        a: 0
+      },
+      {
+        q: "Which property sets the background gradient?",
+        o: ["background", "background-gradient", "gradient", "color-gradient"],
+        a: 0
+      },
+      {
+        q: "Which property animates changes in CSS properties?",
+        o: ["transition", "animation", "transform", "effect"],
+        a: 0
+      },
+      {
+        q: "Which property defines keyframe animations?",
+        o: ["@keyframes", "@animation", "@transition", "@frames"],
+        a: 0
+      },
+      {
+        q: "Which property sets the maximum width of an element?",
+        o: ["max-width", "width", "min-width", "size"],
+        a: 0
+      },
+      {
+        q: "Which property sets the minimum height of an element?",
+        o: ["min-height", "height", "max-height", "size"],
+        a: 0
+      },
+      {
+        q: "Which property hides an element but keeps its space?",
+        o: ["visibility: hidden", "display: none", "opacity: 0", "hidden: true"],
+        a: 0
+      },
+      {
+        q: "Which property removes an element from the layout?",
+        o: ["display: none", "visibility: hidden", "opacity: 0", "remove: true"],
+        a: 0
+      },
+      {
+        q: "Which selector targets all elements?",
+        o: ["*", "all", "body", "html"],
+        a: 0
+      },
+      {
+        q: "Which selector targets direct children?",
+        o: ["parent > child", "parent child", "parent + child", "parent.child"],
+        a: 0
+      },
+      {
+        q: "Which property sets the font family?",
+        o: ["font-family", "font", "font-type", "typeface"],
+        a: 0
+      },
+      {
+        q: "Which property sets the border color?",
+        o: ["border-color", "border", "color", "outline-color"],
+        a: 0
+      },
+      {
+        q: "Which property sets the border radius?",
+        o: ["border-radius", "border-curve", "radius", "corner-radius"],
+        a: 0
+      },
+      {
+        q: "Which property sets the opacity of an element?",
+        o: ["opacity", "visibility", "alpha", "transparent"],
+        a: 0
+      },
+      {
+        q: "Which property sets the shadow of a box?",
+        o: ["box-shadow", "shadow", "text-shadow", "filter-shadow"],
+        a: 0
+      },
+      {
+        q: "Which property sets the shadow of text?",
+        o: ["text-shadow", "box-shadow", "shadow", "font-shadow"],
+        a: 0
+      },
+      {
+        q: "Which property sets the spacing between letters?",
+        o: ["letter-spacing", "word-spacing", "spacing", "font-spacing"],
+        a: 0
+      },
+      {
+        q: "Which property sets the spacing between words?",
+        o: ["word-spacing", "letter-spacing", "spacing", "font-spacing"],
+        a: 0
+      },
+      {
+        q: "Which property sets the line height?",
+        o: ["line-height", "height", "font-height", "text-height"],
+        a: 0
+      },
+      {
+        q: "Which property sets the alignment of text?",
+        o: ["text-align", "align", "font-align", "align-text"],
+        a: 0
+      },
+      {
+        q: "Which property sets the indentation of the first line?",
+        o: ["text-indent", "indent", "line-indent", "first-indent"],
+        a: 0
+      },
+      {
+        q: "Which property sets the cursor style?",
+        o: ["cursor", "pointer", "mouse", "hover"],
+        a: 0
+      }
+    ];
+
+    // Shuffle questions and pick 50 (already 50 here, but this allows for expansion)
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+    const examQuestions = shuffle(questions).slice(0, 50);
+
+    // Timer
+    let timeLeft = 30 * 60; // 30 minutes in seconds
+    let timerInterval;
+    function startTimer() {
+      function updateTimer() {
+        const min = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+        const sec = String(timeLeft % 60).padStart(2, '0');
+        document.getElementById('timer').textContent = `⏰ ${min}:${sec}`;
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          submitExam();
+        }
+        timeLeft--;
+      }
+      updateTimer();
+      timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    // Render questions
+    const examForm = document.getElementById('examForm');
+    examQuestions.forEach((q, idx) => {
+      const div = document.createElement('div');
+      div.className = 'question';
+      div.innerHTML = `
+        <h3>Q${idx + 1}. ${q.q}</h3>
+        <div class="options">
+          ${q.o.map((opt, i) => `
+            <label>
+              <input type="radio" name="q${idx}" value="${i}">
+              ${opt.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
+            </label>
+          `).join('')}
+        </div>
+      `;
+      examForm.appendChild(div);
+    });
+
+    // Progress bar
+    examForm.addEventListener('change', () => {
+      const total = examQuestions.length;
+      const answered = Array.from(examForm.elements).filter(e => e.checked).length;
+      document.getElementById('progress').style.width = `${(answered / total) * 100}%`;
+    });
+
+    // Submit logic
+    document.getElementById('submitBtn').onclick = function(e) {
+      e.preventDefault();
+      submitExam();
+    };
+
+    function submitExam() {
+      clearInterval(timerInterval);
+      let score = 0;
+      let failList = [];
+      examQuestions.forEach((q, idx) => {
+        const radios = examForm['q' + idx];
+        let userAns = null;
+        if (radios) {
+          if (radios.length) {
+            for (let r of radios) if (r.checked) userAns = Number(r.value);
+          } else {
+            if (radios.checked) userAns = Number(radios.value);
+          }
+        }
+        if (userAns === q.a) {
+          score++;
+        } else {
+          failList.push({
+            idx: idx + 1,
+            question: q.q,
+            correct: q.o[q.a]
+          });
+        }
+      });
+      const percent = Math.round((score / examQuestions.length) * 100);
+      let resultHTML = `<h2>Your Score: ${score} / ${examQuestions.length} (${percent}%)</h2>`;
+      if (percent >= 50) {
+        resultHTML += `<div class="pass">Congratulations! You passed the CSS Styling Mastery Exam.</div>`;
+      } else {
+        resultHTML += `<div class="fail">You did not pass. Review the questions below:</div>`;
+        resultHTML += `<div class="fail-list"><ul>`;
+        failList.forEach(f => {
+          resultHTML += `<li><b>Q${f.idx}:</b> ${f.question}<br><span style="color:#6a11cb;">Correct Answer:</span> ${f.correct.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</li>`;
+        });
+        resultHTML += `</ul></div>`;
+      }
+      document.getElementById('result').innerHTML = resultHTML;
+      document.getElementById('submitBtn').disabled = true;
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    // Highlight selected option
+    examForm.addEventListener('change', e => {
+      if (e.target.type === 'radio') {
+        const labels = e.target.closest('.options').querySelectorAll('label');
+        labels.forEach(l => l.classList.remove('selected'));
+        e.target.parentElement.classList.add('selected');
+      }
+    });
+
+    startTimer();
+  </script>
+</body>
+</html>

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML Fundamentals Exam | WebDev Academy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background: #f8f9fa;
+      color: #222;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(67,97,238,0.08);
+      padding: 2rem;
+    }
+    h1 {
+      color: #4361ee;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .question {
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #eee;
+    }
+    .question h3 {
+      margin-bottom: 0.5rem;
+      color: #4361ee;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .options label {
+      background: #f0f0f0;
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .options input[type="radio"] {
+      margin-right: 0.7rem;
+    }
+    .options label.selected {
+      background: #e0e7ff;
+    }
+    .submit-btn {
+      background: #4361ee;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 0.8rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 2rem auto 0 auto;
+      display: block;
+    }
+    .result {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .fail-list {
+      color: #e71d36;
+      margin-top: 1.5rem;
+    }
+    .pass {
+      color: #1dd1a1;
+      font-weight: bold;
+    }
+    .fail {
+      color: #e71d36;
+      font-weight: bold;
+    }
+    .progress-bar {
+      height: 18px;
+      background: #eee;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+    .progress-bar-inner {
+      height: 100%;
+      background: #4361ee;
+      width: 0;
+      transition: width 0.3s;
+    }
+    #timer {
+      float: right;
+      font-weight: bold;
+      color: #e71d36;
+      font-size: 1.1em;
+      margin-top: -2.5rem;
+    }
+    @media (max-width: 600px) {
+      .container { padding: 1rem; }
+      h1 { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><i class="fas fa-file-alt"></i> HTML Fundamentals Exam</h1>
+    <div id="timer"></div>
+    <div class="progress-bar"><div class="progress-bar-inner" id="progress"></div></div>
+    <form id="examForm"></form>
+    <button class="submit-btn" id="submitBtn">Submit Exam</button>
+    <div class="result" id="result"></div>
+  </div>
+  <script>
+    // 50 HTML Fundamentals Questions
+    const questions = [
+      {
+        q: "What does HTML stand for?",
+        o: [
+          "HyperText Markup Language",
+          "Home Tool Markup Language",
+          "Hyperlinks and Text Markup Language",
+          "Hyper Transfer Markup Language"
+        ],
+        a: 0
+      },
+      {
+        q: "Which tag is used for the largest heading?",
+        o: ["<h6>", "<heading>", "<h1>", "<head>"],
+        a: 2
+      },
+      {
+        q: "What is the correct HTML element for inserting a line break?",
+        o: ["<break>", "<br>", "<lb>", "<line>"],
+        a: 1
+      },
+      {
+        q: "Which tag is used to create a hyperlink?",
+        o: ["<a>", "<link>", "<href>", "<url>"],
+        a: 0
+      },
+      {
+        q: "What is the correct HTML for adding an image?",
+        o: [
+          "<img href='image.jpg' alt='desc'>",
+          "<image src='image.jpg' alt='desc'>",
+          "<img src='image.jpg' alt='desc'>",
+          "<img>image.jpg</img>"
+        ],
+        a: 2
+      },
+      {
+        q: "Which tag is used to define an unordered list?",
+        o: ["<ol>", "<ul>", "<li>", "<list>"],
+        a: 1
+      },
+      {
+        q: "Which tag is used to define a table row?",
+        o: ["<td>", "<th>", "<tr>", "<row>"],
+        a: 2
+      },
+      {
+        q: "What is the correct HTML for making a checkbox?",
+        o: [
+          "<input type='checkbox'>",
+          "<checkbox>",
+          "<input checkbox>",
+          "<input type='check'>"
+        ],
+        a: 0
+      },
+      {
+        q: "Which tag is used to define emphasized text?",
+        o: ["<i>", "<em>", "<strong>", "<italic>"],
+        a: 1
+      },
+      {
+        q: "Which tag is used for a numbered list?",
+        o: ["<ul>", "<ol>", "<li>", "<dl>"],
+        a: 1
+      },
+      {
+        q: "What does the <title> tag do?",
+        o: [
+          "Sets the main heading",
+          "Defines the page title in the browser tab",
+          "Adds a tooltip",
+          "Creates a subtitle"
+        ],
+        a: 1
+      },
+      {
+        q: "Which tag is used for the document's metadata?",
+        o: ["<meta>", "<data>", "<info>", "<head>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used to display a horizontal rule?",
+        o: ["<hr>", "<line>", "<break>", "<rule>"],
+        a: 0
+      },
+      {
+        q: "What is the correct HTML for creating a drop-down list?",
+        o: [
+          "<input type='dropdown'>",
+          "<dropdown>",
+          "<select>",
+          "<list>"
+        ],
+        a: 2
+      },
+      {
+        q: "Which tag is used for the main content of the page?",
+        o: ["<main>", "<body>", "<content>", "<section>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for a table header cell?",
+        o: ["<th>", "<header>", "<thead>", "<td>"],
+        a: 0
+      },
+      {
+        q: "How do you write a comment in HTML?",
+        o: [
+          "// This is a comment",
+          "<!-- This is a comment -->",
+          "# This is a comment",
+          "<comment>This is a comment</comment>"
+        ],
+        a: 1
+      },
+      {
+        q: "Which tag is used to group inline elements and apply styles?",
+        o: ["<div>", "<span>", "<section>", "<group>"],
+        a: 1
+      },
+      {
+        q: "What is the correct HTML for making text bold?",
+        o: ["<b>", "<strong>", "<bold>", "<em>"],
+        a: 1
+      },
+      {
+        q: "Which tag is used for the navigation links?",
+        o: ["<nav>", "<navigation>", "<links>", "<menu>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for the footer of a page?",
+        o: ["<bottom>", "<footer>", "<foot>", "<end>"],
+        a: 1
+      },
+      {
+        q: "Which tag is used for a block-level quote?",
+        o: ["<q>", "<blockquote>", "<quote>", "<bq>"],
+        a: 1
+      },
+      {
+        q: "Which tag is used for inline code?",
+        o: ["<pre>", "<code>", "<samp>", "<kbd>"],
+        a: 1
+      },
+      {
+        q: "Which tag is used for a description list?",
+        o: ["<dl>", "<list>", "<desc>", "<ul>"],
+        a: 0
+      },
+      {
+        q: "Which attribute is required for the <img> tag?",
+        o: ["src", "href", "alt", "title"],
+        a: 0
+      },
+      {
+        q: "What is the correct HTML for creating a text input field?",
+        o: [
+          "<input type='text'>",
+          "<textfield>",
+          "<input text>",
+          "<textinput>"
+        ],
+        a: 0
+      },
+      {
+        q: "Which tag is used for the sidebar content?",
+        o: ["<aside>", "<side>", "<sidebar>", "<section>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for the page header?",
+        o: ["<header>", "<head>", "<top>", "<h1>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for a short inline quotation?",
+        o: ["<q>", "<blockquote>", "<quote>", "<cite>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for marking up abbreviations?",
+        o: ["<abbr>", "<abbrv>", "<short>", "<acronym>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for preformatted text?",
+        o: ["<pre>", "<code>", "<format>", "<text>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for a table data cell?",
+        o: ["<td>", "<tr>", "<th>", "<cell>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for a list item?",
+        o: ["<li>", "<item>", "<ul>", "<ol>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for a definition term in a description list?",
+        o: ["<dt>", "<dd>", "<def>", "<term>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for a definition description in a description list?",
+        o: ["<dt>", "<dd>", "<def>", "<desc>"],
+        a: 1
+      },
+      {
+        q: "Which tag is used for superscript text?",
+        o: ["<sup>", "<sub>", "<super>", "<script>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for subscript text?",
+        o: ["<sub>", "<sup>", "<script>", "<small>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for a line break?",
+        o: ["<break>", "<br>", "<lb>", "<line>"],
+        a: 1
+      },
+      {
+        q: "Which tag is used for a section of content?",
+        o: ["<section>", "<div>", "<part>", "<main>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for marking up contact information?",
+        o: ["<address>", "<contact>", "<info>", "<footer>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for marking up time or dates?",
+        o: ["<time>", "<date>", "<datetime>", "<clock>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for marking up sample output?",
+        o: ["<samp>", "<output>", "<sample>", "<code>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for marking up keyboard input?",
+        o: ["<kbd>", "<key>", "<input>", "<code>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for marking up variable names?",
+        o: ["<var>", "<variable>", "<code>", "<name>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for marking up highlighted text?",
+        o: ["<mark>", "<highlight>", "<hi>", "<em>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for marking up deleted text?",
+        o: ["<del>", "<delete>", "<strike>", "<remove>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for marking up inserted text?",
+        o: ["<ins>", "<insert>", "<add>", "<new>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for marking up small print?",
+        o: ["<small>", "<tiny>", "<min>", "<short>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for marking up strong importance?",
+        o: ["<strong>", "<b>", "<important>", "<em>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for marking up emphasized text?",
+        o: ["<em>", "<i>", "<italic>", "<strong>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for marking up a progress bar?",
+        o: ["<progress>", "<bar>", "<meter>", "<load>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for marking up a meter or scalar measurement?",
+        o: ["<meter>", "<progress>", "<scale>", "<measure>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for grouping form elements?",
+        o: ["<fieldset>", "<group>", "<formgroup>", "<set>"],
+        a: 0
+      },
+      {
+        q: "Which tag is used for labeling form elements?",
+        o: ["<label>", "<formlabel>", "<tag>", "<caption>"],
+        a: 0
+      }
+    ];
+
+    // Shuffle questions and pick 50 (already 50 here, but this allows for expansion)
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+    const examQuestions = shuffle(questions).slice(0, 50);
+
+    // Timer
+    let timeLeft = 30 * 60; // 30 minutes in seconds
+    let timerInterval;
+    function startTimer() {
+      function updateTimer() {
+        const min = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+        const sec = String(timeLeft % 60).padStart(2, '0');
+        document.getElementById('timer').textContent = `⏰ ${min}:${sec}`;
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          submitExam();
+        }
+        timeLeft--;
+      }
+      updateTimer();
+      timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    // Render questions
+    const examForm = document.getElementById('examForm');
+    examQuestions.forEach((q, idx) => {
+      const div = document.createElement('div');
+      div.className = 'question';
+      div.innerHTML = `
+        <h3>Q${idx + 1}. ${q.q}</h3>
+        <div class="options">
+          ${q.o.map((opt, i) => `
+            <label>
+              <input type="radio" name="q${idx}" value="${i}">
+              ${opt.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
+            </label>
+          `).join('')}
+        </div>
+      `;
+      examForm.appendChild(div);
+    });
+
+    // Progress bar
+    examForm.addEventListener('change', () => {
+      const total = examQuestions.length;
+      const answered = Array.from(examForm.elements).filter(e => e.checked).length;
+      document.getElementById('progress').style.width = `${(answered / total) * 100}%`;
+    });
+
+    // Submit logic
+    document.getElementById('submitBtn').onclick = function(e) {
+      e.preventDefault();
+      submitExam();
+    };
+
+    function submitExam() {
+      clearInterval(timerInterval);
+      let score = 0;
+      let failList = [];
+      examQuestions.forEach((q, idx) => {
+        const radios = examForm['q' + idx];
+        let userAns = null;
+        if (radios) {
+          if (radios.length) {
+            for (let r of radios) if (r.checked) userAns = Number(r.value);
+          } else {
+            if (radios.checked) userAns = Number(radios.value);
+          }
+        }
+        if (userAns === q.a) {
+          score++;
+        } else {
+          failList.push({
+            idx: idx + 1,
+            question: q.q,
+            correct: q.o[q.a]
+          });
+        }
+      });
+      const percent = Math.round((score / examQuestions.length) * 100);
+      let resultHTML = `<h2>Your Score: ${score} / ${examQuestions.length} (${percent}%)</h2>`;
+      if (percent >= 50) {
+        resultHTML += `<div class="pass">Congratulations! You passed the HTML Fundamentals Exam.</div>`;
+      } else {
+        resultHTML += `<div class="fail">You did not pass. Review the questions below:</div>`;
+        resultHTML += `<div class="fail-list"><ul>`;
+        failList.forEach(f => {
+          resultHTML += `<li><b>Q${f.idx}:</b> ${f.question}<br><span style="color:#4361ee;">Correct Answer:</span> ${f.correct.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</li>`;
+        });
+        resultHTML += `</ul></div>`;
+      }
+      document.getElementById('result').innerHTML = resultHTML;
+      document.getElementById('submitBtn').disabled = true;
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    // Highlight selected option
+    examForm.addEventListener('change', e => {
+      if (e.target.type === 'radio') {
+        const labels = e.target.closest('.options').querySelectorAll('label');
+        labels.forEach(l => l.classList.remove('selected'));
+        e.target.parentElement.classList.add('selected');
+      }
+    });
+
+    startTimer();
+  </script>
+</body>
+</html>

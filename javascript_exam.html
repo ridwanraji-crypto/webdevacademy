@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Programming Exam | WebDev Academy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background: #f8f9fa;
+      color: #222;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(67,97,238,0.08);
+      padding: 2rem;
+    }
+    h1 {
+      color: #2ec4b6;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .question {
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #eee;
+    }
+    .question h3 {
+      margin-bottom: 0.5rem;
+      color: #4361ee;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .options label {
+      background: #f0f0f0;
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .options input[type="radio"] {
+      margin-right: 0.7rem;
+    }
+    .options label.selected {
+      background: #e0e7ff;
+    }
+    .submit-btn {
+      background: #2ec4b6;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 0.8rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 2rem auto 0 auto;
+      display: block;
+    }
+    .result {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .fail-list {
+      color: #e71d36;
+      margin-top: 1.5rem;
+    }
+    .pass {
+      color: #1dd1a1;
+      font-weight: bold;
+    }
+    .fail {
+      color: #e71d36;
+      font-weight: bold;
+    }
+    .progress-bar {
+      height: 18px;
+      background: #eee;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+    .progress-bar-inner {
+      height: 100%;
+      background: #2ec4b6;
+      width: 0;
+      transition: width 0.3s;
+    }
+    #timer {
+      float: right;
+      font-weight: bold;
+      color: #e71d36;
+      font-size: 1.1em;
+      margin-top: -2.5rem;
+    }
+    @media (max-width: 600px) {
+      .container { padding: 1rem; }
+      h1 { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><i class="fas fa-file-alt"></i> JavaScript Programming Exam</h1>
+    <div id="timer"></div>
+    <div class="progress-bar"><div class="progress-bar-inner" id="progress"></div></div>
+    <form id="examForm"></form>
+    <button class="submit-btn" id="submitBtn">Submit Exam</button>
+    <div class="result" id="result"></div>
+  </div>
+  <script>
+    // 50 JavaScript Programming Questions
+    const questions = [
+      {
+        q: "What does JavaScript primarily run on?",
+        o: [
+          "The browser",
+          "The server only",
+          "The operating system",
+          "The database"
+        ],
+        a: 0
+      },
+      {
+        q: "Which keyword declares a variable with block scope?",
+        o: ["var", "let", "const", "both let and const"],
+        a: 3
+      },
+      {
+        q: "Which of the following is NOT a valid JavaScript data type?",
+        o: ["String", "Number", "Character", "Boolean"],
+        a: 2
+      },
+      {
+        q: "How do you write a single-line comment in JavaScript?",
+        o: ["// comment", "<!-- comment -->", "# comment", "' comment"],
+        a: 0
+      },
+      {
+        q: "Which operator is used for strict equality?",
+        o: ["==", "===", "=", "!="],
+        a: 1
+      },
+      {
+        q: "What is the output of: console.log(typeof null);",
+        o: ["'null'", "'object'", "'undefined'", "'number'"],
+        a: 1
+      },
+      {
+        q: "Which method converts a string to an integer?",
+        o: ["parseInt()", "parseFloat()", "Number()", "toString()"],
+        a: 0
+      },
+      {
+        q: "How do you define a function in JavaScript?",
+        o: [
+          "function myFunc() {}",
+          "def myFunc() {}",
+          "func myFunc() {}",
+          "function:myFunc() {}"
+        ],
+        a: 0
+      },
+      {
+        q: "Which array method adds an element to the end?",
+        o: ["push()", "pop()", "shift()", "unshift()"],
+        a: 0
+      },
+      {
+        q: "Which array method removes the first element?",
+        o: ["shift()", "pop()", "push()", "splice()"],
+        a: 0
+      },
+      {
+        q: "What does DOM stand for?",
+        o: [
+          "Document Object Model",
+          "Data Object Model",
+          "Document Oriented Model",
+          "Display Object Model"
+        ],
+        a: 0
+      },
+      {
+        q: "How do you select an element by ID in the DOM?",
+        o: [
+          "document.getElementById('id')",
+          "document.querySelector('.id')",
+          "document.getElementByClass('id')",
+          "document.getElement('id')"
+        ],
+        a: 0
+      },
+      {
+        q: "Which event is triggered when a button is clicked?",
+        o: ["onclick", "onhover", "onpress", "onchange"],
+        a: 0
+      },
+      {
+        q: "Which method can be used to convert an object to a JSON string?",
+        o: ["JSON.stringify()", "JSON.parse()", "toString()", "parseJSON()"],
+        a: 0
+      },
+      {
+        q: "What is the result of '2' + 2 in JavaScript?",
+        o: ["'22'", "4", "NaN", "undefined"],
+        a: 0
+      },
+      {
+        q: "Which keyword prevents reassignment of a variable?",
+        o: ["let", "var", "const", "static"],
+        a: 2
+      },
+      {
+        q: "How do you write an if statement in JavaScript?",
+        o: [
+          "if (condition) { ... }",
+          "if condition then { ... }",
+          "if [condition] { ... }",
+          "if: condition { ... }"
+        ],
+        a: 0
+      },
+      {
+        q: "Which loop is best for iterating over arrays?",
+        o: ["for", "while", "for...of", "do...while"],
+        a: 2
+      },
+      {
+        q: "What does the 'this' keyword refer to in a method?",
+        o: [
+          "The object the method belongs to",
+          "The global object",
+          "The parent object",
+          "The function itself"
+        ],
+        a: 0
+      },
+      {
+        q: "Which method is used to add an event listener?",
+        o: [
+          "addEventListener()",
+          "onEvent()",
+          "attachEvent()",
+          "listenEvent()"
+        ],
+        a: 0
+      },
+      {
+        q: "Which method removes the last element from an array?",
+        o: ["pop()", "shift()", "splice()", "remove()"],
+        a: 0
+      },
+      {
+        q: "Which method returns the index of the first match in a string?",
+        o: ["indexOf()", "search()", "find()", "match()"],
+        a: 0
+      },
+      {
+        q: "Which method can be used to merge two arrays?",
+        o: ["concat()", "join()", "push()", "merge()"],
+        a: 0
+      },
+      {
+        q: "Which property gets the number of elements in an array?",
+        o: ["length", "count", "size", "elements"],
+        a: 0
+      },
+      {
+        q: "Which method executes a function for each array element?",
+        o: ["forEach()", "map()", "filter()", "reduce()"],
+        a: 0
+      },
+      {
+        q: "Which method creates a new array with elements that pass a test?",
+        o: ["filter()", "map()", "forEach()", "reduce()"],
+        a: 0
+      },
+      {
+        q: "Which method transforms each element and returns a new array?",
+        o: ["map()", "filter()", "forEach()", "reduce()"],
+        a: 0
+      },
+      {
+        q: "Which method reduces an array to a single value?",
+        o: ["reduce()", "map()", "filter()", "forEach()"],
+        a: 0
+      },
+      {
+        q: "What is the output of: Boolean('')",
+        o: ["false", "true", "undefined", "null"],
+        a: 0
+      },
+      {
+        q: "Which operator is used for logical AND?",
+        o: ["&&", "||", "!", "&"],
+        a: 0
+      },
+      {
+        q: "Which operator is used for logical OR?",
+        o: ["||", "&&", "|", "or"],
+        a: 0
+      },
+      {
+        q: "Which operator is used for logical NOT?",
+        o: ["!", "not", "~", "!!"],
+        a: 0
+      },
+      {
+        q: "How do you declare a constant array?",
+        o: [
+          "const arr = []",
+          "let arr = []",
+          "var arr = []",
+          "array arr = []"
+        ],
+        a: 0
+      },
+      {
+        q: "Which method parses a JSON string to an object?",
+        o: ["JSON.parse()", "JSON.stringify()", "parseJSON()", "toObject()"],
+        a: 0
+      },
+      {
+        q: "Which method stores data in localStorage?",
+        o: [
+          "localStorage.setItem()",
+          "localStorage.save()",
+          "localStorage.store()",
+          "localStorage.add()"
+        ],
+        a: 0
+      },
+      {
+        q: "Which method retrieves data from localStorage?",
+        o: [
+          "localStorage.getItem()",
+          "localStorage.fetch()",
+          "localStorage.retrieve()",
+          "localStorage.read()"
+        ],
+        a: 0
+      },
+      {
+        q: "Which method fetches data from an API?",
+        o: ["fetch()", "get()", "request()", "ajax()"],
+        a: 0
+      },
+      {
+        q: "Which statement creates a class in JavaScript?",
+        o: [
+          "class MyClass {}",
+          "function MyClass() {}",
+          "object MyClass {}",
+          "MyClass = class {}"
+        ],
+        a: 0
+      },
+      {
+        q: "How do you export a function from a module?",
+        o: [
+          "export function myFunc() {}",
+          "module.export myFunc",
+          "exports.myFunc = function() {}",
+          "export: myFunc()"
+        ],
+        a: 0
+      },
+      {
+        q: "Which regular expression matches an email?",
+        o: [
+          "/\\S+@\\S+\\.\\S+/",
+          "/[a-z]+/",
+          "/\\d+/",
+          "/[A-Z]+/"
+        ],
+        a: 0
+      },
+      {
+        q: "Which method tests a regex pattern in a string?",
+        o: ["test()", "match()", "exec()", "search()"],
+        a: 0
+      },
+      {
+        q: "Which tool is used for debugging JavaScript in browsers?",
+        o: [
+          "DevTools",
+          "Terminal",
+          "Command Prompt",
+          "Text Editor"
+        ],
+        a: 0
+      },
+      {
+        q: "Which statement handles errors in JavaScript?",
+        o: [
+          "try...catch",
+          "if...else",
+          "switch...case",
+          "for...catch"
+        ],
+        a: 0
+      },
+      {
+        q: "Which keyword is used to define a class?",
+        o: ["class", "object", "function", "constructor"],
+        a: 0
+      },
+      {
+        q: "Which method schedules a function to run after a delay?",
+        o: ["setTimeout()", "setInterval()", "delay()", "wait()"],
+        a: 0
+      },
+      {
+        q: "Which method schedules a function to run repeatedly?",
+        o: ["setInterval()", "setTimeout()", "repeat()", "loop()"],
+        a: 0
+      },
+      {
+        q: "Which keyword is used for asynchronous functions?",
+        o: ["async", "await", "defer", "promise"],
+        a: 0
+      },
+      {
+        q: "Which keyword is used to wait for a promise?",
+        o: ["await", "async", "then", "wait"],
+        a: 0
+      },
+      {
+        q: "Which method is used to fetch data with promises?",
+        o: ["fetch()", "get()", "request()", "ajax()"],
+        a: 0
+      },
+      {
+        q: "Which method is used to test code in JavaScript?",
+        o: [
+          "console.log()",
+          "alert()",
+          "prompt()",
+          "confirm()"
+        ],
+        a: 0
+      }
+    ];
+
+    // Shuffle questions and pick 50 (already 50 here, but this allows for expansion)
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+    const examQuestions = shuffle(questions).slice(0, 50);
+
+    // Timer
+    let timeLeft = 30 * 60; // 30 minutes in seconds
+    let timerInterval;
+    function startTimer() {
+      function updateTimer() {
+        const min = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+        const sec = String(timeLeft % 60).padStart(2, '0');
+        document.getElementById('timer').textContent = `⏰ ${min}:${sec}`;
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          submitExam();
+        }
+        timeLeft--;
+      }
+      updateTimer();
+      timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    // Render questions
+    const examForm = document.getElementById('examForm');
+    examQuestions.forEach((q, idx) => {
+      const div = document.createElement('div');
+      div.className = 'question';
+      div.innerHTML = `
+        <h3>Q${idx + 1}. ${q.q}</h3>
+        <div class="options">
+          ${q.o.map((opt, i) => `
+            <label>
+              <input type="radio" name="q${idx}" value="${i}">
+              ${opt.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
+            </label>
+          `).join('')}
+        </div>
+      `;
+      examForm.appendChild(div);
+    });
+
+    // Progress bar
+    examForm.addEventListener('change', () => {
+      const total = examQuestions.length;
+      const answered = Array.from(examForm.elements).filter(e => e.checked).length;
+      document.getElementById('progress').style.width = `${(answered / total) * 100}%`;
+    });
+
+    // Submit logic
+    document.getElementById('submitBtn').onclick = function(e) {
+      e.preventDefault();
+      submitExam();
+    };
+
+    function submitExam() {
+      clearInterval(timerInterval);
+      let score = 0;
+      let failList = [];
+      examQuestions.forEach((q, idx) => {
+        const radios = examForm['q' + idx];
+        let userAns = null;
+        if (radios) {
+          if (radios.length) {
+            for (let r of radios) if (r.checked) userAns = Number(r.value);
+          } else {
+            if (radios.checked) userAns = Number(radios.value);
+          }
+        }
+        if (userAns === q.a) {
+          score++;
+        } else {
+          failList.push({
+            idx: idx + 1,
+            question: q.q,
+            correct: q.o[q.a]
+          });
+        }
+      });
+      const percent = Math.round((score / examQuestions.length) * 100);
+      let resultHTML = `<h2>Your Score: ${score} / ${examQuestions.length} (${percent}%)</h2>`;
+      if (percent >= 50) {
+        resultHTML += `<div class="pass">Congratulations! You passed the JavaScript Programming Exam.</div>`;
+      } else {
+        resultHTML += `<div class="fail">You did not pass. Review the questions below:</div>`;
+        resultHTML += `<div class="fail-list"><ul>`;
+        failList.forEach(f => {
+          resultHTML += `<li><b>Q${f.idx}:</b> ${f.question}<br><span style="color:#2ec4b6;">Correct Answer:</span> ${f.correct.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</li>`;
+        });
+        resultHTML += `</ul></div>`;
+      }
+      document.getElementById('result').innerHTML = resultHTML;
+      document.getElementById('submitBtn').disabled = true;
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    // Highlight selected option
+    examForm.addEventListener('change', e => {
+      if (e.target.type === 'radio') {
+        const labels = e.target.closest('.options').querySelectorAll('label');
+        labels.forEach(l => l.classList.remove('selected'));
+        e.target.parentElement.classList.add('selected');
+      }
+    });
+
+    startTimer();
+  </script>
+</body>
+</html>

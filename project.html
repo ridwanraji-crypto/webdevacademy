@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mini Projects | WebDev Academy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background: #f8f9fa;
+      color: #222;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(67,97,238,0.08);
+      padding: 2rem;
+    }
+    h1 {
+      color: #4361ee;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .project-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .project-card {
+      background: #f0f4ff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(67,97,238,0.06);
+      padding: 1.5rem 1.2rem;
+      width: 270px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+    }
+    .project-card:hover {
+      box-shadow: 0 8px 32px rgba(67,97,238,0.13);
+      transform: translateY(-4px) scale(1.03);
+    }
+    .project-card h2 {
+      font-size: 1.2rem;
+      color: #4361ee;
+      margin: 0 0 0.5rem 0;
+      font-weight: 700;
+    }
+    .project-card p {
+      font-size: 1rem;
+      color: #333;
+      margin-bottom: 1.2rem;
+      flex: 1;
+    }
+    .project-card .project-tags {
+      margin-bottom: 1rem;
+    }
+    .project-card .tag {
+      display: inline-block;
+      background: #e0e7ff;
+      color: #4361ee;
+      border-radius: 4px;
+      padding: 0.2rem 0.7rem;
+      font-size: 0.85em;
+      margin-right: 0.5rem;
+      margin-bottom: 0.2rem;
+    }
+    .project-card a {
+      background: #4361ee;
+      color: #fff;
+      text-decoration: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 1em;
+      transition: background 0.2s;
+      align-self: flex-end;
+    }
+    .project-card a:hover {
+      background: #2743a6;
+    }
+    @media (max-width: 700px) {
+      .project-list { flex-direction: column; align-items: center; }
+      .project-card { width: 98%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><i class="fas fa-lightbulb"></i> Mini Projects</h1>
+    <p style="text-align:center; color:#555; max-width:600px; margin:0 auto 2rem auto;">
+      Practice your HTML, CSS, and JavaScript skills with these hands-on mini projects. Each project comes with a description and a link to get started. Challenge yourself and build your portfolio!
+    </p>
+    <div class="project-list">
+      <div class="project-card">
+        <h2><i class="fas fa-id-card"></i> Profile Card</h2>
+        <div class="project-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+        </div>
+        <p>Create a personal profile card with your photo, name, and a short bio. Style it with CSS for a modern look.</p>
+        <a href="code.html" target="_blank"><i class="fas fa-play"></i> Try Project</a>
+      </div>
+      <div class="project-card">
+        <h2><i class="fas fa-list"></i> To-Do List</h2>
+        <div class="project-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+        </div>
+        <p>Build a simple to-do list app where users can add, complete, and remove tasks. Use JavaScript for interactivity.</p>
+        <a href="code.html" target="_blank"><i class="fas fa-play"></i> Try Project</a>
+      </div>
+      <div class="project-card">
+        <h2><i class="fas fa-calculator"></i> Calculator</h2>
+        <div class="project-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+        </div>
+        <p>Design a basic calculator that can perform addition, subtraction, multiplication, and division.</p>
+        <a href="code.html" target="_blank"><i class="fas fa-play"></i> Try Project</a>
+      </div>
+      <div class="project-card">
+        <h2><i class="fas fa-palette"></i> Color Picker</h2>
+        <div class="project-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+        </div>
+        <p>Let users pick a color and display its hex code. Update the background color live as they choose.</p>
+        <a href="code.html" target="_blank"><i class="fas fa-play"></i> Try Project</a>
+      </div>
+      <div class="project-card">
+        <h2><i class="fas fa-clock"></i> Digital Clock</h2>
+        <div class="project-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+        </div>
+        <p>Show the current time in a digital clock format. Update every second using JavaScript.</p>
+        <a href="code.html" target="_blank"><i class="fas fa-play"></i> Try Project</a>
+      </div>
+      <div class="project-card">
+        <h2><i class="fas fa-bars"></i> Responsive Navigation Menu</h2>
+        <div class="project-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+        </div>
+        <p>Create a navigation bar that collapses into a hamburger menu on small screens.</p>
+        <a href="code.html" target="_blank"><i class="fas fa-play"></i> Try Project</a>
+      </div>
+      <div class="project-card">
+        <h2><i class="fas fa-image"></i> Image Gallery</h2>
+        <div class="project-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+        </div>
+        <p>Build a simple image gallery layout with CSS grid or flexbox. Add hover effects for interactivity.</p>
+        <a href="code.html" target="_blank"><i class="fas fa-play"></i> Try Project</a>
+      </div>
+      <div class="project-card">
+        <h2><i class="fas fa-envelope"></i> Contact Form</h2>
+        <div class="project-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+        </div>
+        <p>Design a contact form with fields for name, email, and message. Style it for clarity and accessibility.</p>
+        <a href="code.html" target="_blank"><i class="fas fa-play"></i> Try Project</a>
+      </div>
+      <div class="project-card">
+        <h2><i class="fas fa-toggle-on"></i> Dark/Light Theme Toggle</h2>
+        <div class="project-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+        </div>
+        <p>Let users switch between dark and light themes. Save their preference using localStorage.</p>
+        <a href="code.html" target="_blank"><i class="fas fa-play"></i> Try Project</a>
+      </div>
+      <div class="project-card">
+        <h2><i class="fas fa-search"></i> Search Filter List</h2>
+        <div class="project-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+        </div>
+        <p>Filter a list of items as the user types in a search box. Show only matching results.</p>
+        <a href="code.html" target="_blank"><i class="fas fa-play"></i> Try Project</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

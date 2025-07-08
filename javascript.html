@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Programming - WebDev Academy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #f7df1e;
+            --primary-dark: #d6bb1a;
+            --secondary: #323330;
+            --accent: #61dafb;
+            --success: #4cc9f0;
+            --warning: #ff9f1c;
+            --danger: #e71d36;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --darker: #1a1c23;
+            --border-radius: 8px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+            --glass: rgba(40, 42, 54, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1c23, #2a2d3a);
+            color: var(--light);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            background: rgba(25, 27, 35, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--primary);
+            color: var(--secondary);
+        }
+
+        .page-header {
+            text-align: center;
+            padding: 4rem 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(247, 223, 30, 0.15);
+            color: var(--primary);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        @media (max-width: 900px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .main-content {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--glass-border);
+        }
+
+        .sidebar {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            align-self: start;
+            position: sticky;
+            top: 100px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .section-title i {
+            color: var(--accent);
+        }
+
+        .concept-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            border: 1px solid var(--glass-border);
+        }
+
+        .concept-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .concept-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .concept-card h3 i {
+            font-size: 1.2rem;
+        }
+
+        .example-container {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .code-example {
+            flex: 1;
+            min-width: 300px;
+            background: #282a36;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .example-header {
+            background: #343746;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .example-content {
+            padding: 1rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            min-height: 150px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            color: #f8f8f2;
+            tab-size: 4;
+        }
+
+        .visual-output {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            color: var(--dark);
+            box-shadow: var(--shadow);
+        }
+
+        .visual-output h4 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .js-keyword {
+            display: inline-block;
+            background: rgba(247, 223, 30, 0.15);
+            color: var(--primary);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .visualizer {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .visual-box {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+        }
+
+        .demo-box {
+            width: 100px;
+            height: 100px;
+            background: var(--primary);
+            margin: 1rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            font-weight: bold;
+            transition: var(--transition);
+            border-radius: 8px;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .control-group label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .array-box {
+            width: 100%;
+            min-height: 100px;
+            background: #343746;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin: 1rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .array-item {
+            background: var(--primary);
+            color: var(--secondary);
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-weight: bold;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .console-output {
+            background: #282a36;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            min-height: 100px;
+            margin: 1rem 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            color: #f8f8f2;
+            overflow: auto;
+        }
+
+        .function-visual {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .function-step {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem;
+            border-radius: var(--border-radius);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .step-number {
+            background: var(--primary);
+            color: var(--secondary);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .sidebar-title {
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--primary);
+        }
+
+        .topic-list {
+            list-style: none;
+        }
+
+        .topic-list li {
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .topic-list a {
+            color: var(--light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            transition: var(--transition);
+        }
+
+        .topic-list a:hover {
+            color: var(--accent);
+        }
+
+        .topic-list a i {
+            width: 25px;
+            text-align: center;
+        }
+
+        .topic-list a.active {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .progress-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--success);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--secondary);
+            padding: 0.8rem 1.8rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .quiz-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .quiz-question {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 0.8rem;
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .quiz-option.selected {
+            background: rgba(247, 223, 30, 0.3);
+            border: 1px solid var(--primary);
+        }
+
+        .quiz-option.correct {
+            background: rgba(76, 201, 240, 0.3);
+            border: 1px solid var(--success);
+        }
+
+        .quiz-option.incorrect {
+            background: rgba(231, 29, 54, 0.3);
+            border: 1px solid var(--danger);
+        }
+
+        .quiz-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            display: none;
+        }
+
+        .feedback-correct {
+            background: rgba(76, 201, 240, 0.2);
+            border: 1px solid var(--success);
+            display: block;
+        }
+
+        .feedback-incorrect {
+            background: rgba(231, 29, 54, 0.2);
+            border: 1px solid var(--danger);
+            display: block;
+        }
+
+        .quiz-result {
+            font-weight: 600;
+            margin-top: 1rem;
+            text-align: center;
+            display: none;
+        }
+
+        .code-editor {
+            background: #282a36;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin: 1.5rem 0;
+        }
+
+        .editor-header {
+            background: #343746;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .editor-actions button {
+            background: #44475a;
+            border: none;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 0.5rem;
+        }
+
+        .editor-body {
+            display: flex;
+            min-height: 200px;
+        }
+
+        .editor-code {
+            flex: 1;
+            padding: 1rem;
+            font-family: 'Fira Code', monospace;
+            color: #f8f8f2;
+            background: #282a36;
+            border: none;
+            resize: none;
+            outline: none;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            tab-size: 4;
+        }
+
+        .editor-preview {
+            flex: 1;
+            background: white;
+            padding: 1rem;
+            color: var(--dark);
+            overflow: auto;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                background: #222;
+                position: absolute;
+                top: 60px;
+                right: 0;
+                width: 70vw;
+                z-index: 1000;
+                border-radius: 0 0 12px 12px;
+                box-shadow: 0 8px 32px rgba(67,97,238,0.13);
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .hamburger {
+                display: block !important;
+                position: absolute;
+                right: 1.5rem;
+                top: 1.2rem;
+                z-index: 1100;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <button class="hamburger" id="hamburgerBtn" aria-label="Open navigation" style="display:none;background:none;border:none;color:var(--primary);font-size:2rem;cursor:pointer;">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a href="#" class="logo">
+                    <i class="fab fa-js"></i>
+                    <span>WebDev Academy</span>
+                </a>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="html.html">HTML</a>
+                    <a href="css.html">CSS</a>
+                    <a href="javascript.html" class="active">JavaScript</a>
+                    <a href="project.html">Projects</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>JavaScript Programming</h1>
+            <p>Master the language of the web with interactive lessons and real-world examples</p>
+            <span class="badge"><i class="fas fa-clock"></i> Estimated time: 5 hours</span>
+        </div>
+
+        <div class="content-grid">
+            <div class="main-content">
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-code"></i> JavaScript Fundamentals</h2>
+                    <div class="concept-card">
+                        <h3><i class="fas fa-variable"></i> Variables and Data Types</h3>
+                        <p>JavaScript variables are containers for storing data values. Use <span class="js-keyword">let</span>, <span class="js-keyword">const</span>, or <span class="js-keyword">var</span> to declare variables.</p>
+                        
+                        <div class="example-container">
+                            <div class="code-example">
+                                <div class="example-header">JavaScript Code</div>
+                                <div class="example-content">// Declaring variables
+let name = "Alice";
+const age = 30;
+var isStudent = false;
+
+// Data types
+let score = 95; // Number
+let colors = ["red", "green", "blue"]; // Array
+let person = { // Object
+  firstName: "John",
+  lastName: "Doe"
+};</div>
+                            </div>
+                            <div class="visual-output">
+                                <h4>Variable Values</h4>
+                                <div class="console-output" id="var-output"></div>
+                                <button class="btn" onclick="displayVariables()">Run Code</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add these new topic sections inside <div class="main-content">, after your existing sections -->
+
+<div class="section">
+    <h2 class="section-title"><i class="fas fa-font"></i> String Methods</h2>
+    <div class="concept-card">
+        <h3><i class="fas fa-quote-right"></i> Common String Methods</h3>
+        <p>JavaScript provides many useful methods for working with strings, such as <span class="js-keyword">.length</span>, <span class="js-keyword">.toUpperCase()</span>, <span class="js-keyword">.slice()</span>, and <span class="js-keyword">.replace()</span>.</p>
+        <div class="example-container">
+            <div class="code-example">
+                <div class="example-header">JavaScript Code</div>
+                <div class="example-content">
+let str = "WebDev Academy";
+console.log(str.length); // 15
+console.log(str.toUpperCase()); // "WEBDEV ACADEMY"
+console.log(str.slice(0, 6)); // "WebDev"
+console.log(str.replace("Academy", "School")); // "WebDev School"
+                </div>
+            </div>
+            <div class="visual-output">
+                <h4>Try It</h4>
+                <div class="console-output" id="string-output"></div>
+                <button class="btn" onclick="runStringMethods()">Run String Methods</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title"><i class="fas fa-calculator"></i> Math & Date</h2>
+    <div class="concept-card">
+        <h3><i class="fas fa-clock"></i> Math and Date Objects</h3>
+        <p>Use the <span class="js-keyword">Math</span> object for calculations and <span class="js-keyword">Date</span> for working with dates and times.</p>
+        <div class="example-container">
+            <div class="code-example">
+                <div class="example-header">JavaScript Code</div>
+                <div class="example-content">
+console.log(Math.round(4.7)); // 5
+console.log(Math.max(10, 20, 30)); // 30
+let now = new Date();
+console.log(now.getFullYear()); // e.g., 2025
+                </div>
+            </div>
+            <div class="visual-output">
+                <h4>Try It</h4>
+                <div class="console-output" id="math-output"></div>
+                <button class="btn" onclick="runMathDate()">Run Math & Date</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title"><i class="fas fa-bug"></i> Error Handling</h2>
+    <div class="concept-card">
+        <h3><i class="fas fa-exclamation-triangle"></i> Try...Catch</h3>
+        <p>Handle errors gracefully in JavaScript using <span class="js-keyword">try...catch</span> blocks.</p>
+        <div class="example-container">
+            <div class="code-example">
+                <div class="example-header">JavaScript Code</div>
+                <div class="example-content">
+try {
+  let result = notDefinedVar + 1;
+} catch (error) {
+  console.log("Error caught:", error.message);
+}
+                </div>
+            </div>
+            <div class="visual-output">
+                <h4>Try It</h4>
+                <div class="console-output" id="error-output"></div>
+                <button class="btn" onclick="runErrorHandling()">Run Error Handling</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title"><i class="fas fa-database"></i> JSON & Local Storage</h2>
+    <div class="concept-card">
+        <h3><i class="fas fa-save"></i> Storing Data</h3>
+        <p>Use <span class="js-keyword">JSON.stringify()</span> and <span class="js-keyword">JSON.parse()</span> to work with localStorage.</p>
+        <div class="example-container">
+            <div class="code-example">
+                <div class="example-header">JavaScript Code</div>
+                <div class="example-content">
+let user = { name: "Alice", age: 25 };
+localStorage.setItem("user", JSON.stringify(user));
+let saved = JSON.parse(localStorage.getItem("user"));
+console.log(saved.name); // "Alice"
+                </div>
+            </div>
+            <div class="visual-output">
+                <h4>Try It</h4>
+                <div class="console-output" id="json-output"></div>
+                <button class="btn" onclick="runJSONLocalStorage()">Run JSON & Storage</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title"><i class="fas fa-network-wired"></i> Fetch API & AJAX</h2>
+    <div class="concept-card">
+        <h3><i class="fas fa-cloud-download-alt"></i> Fetching Data</h3>
+        <p>Use <span class="js-keyword">fetch()</span> to get data from APIs asynchronously.</p>
+        <div class="example-container">
+            <div class="code-example">
+                <div class="example-header">JavaScript Code</div>
+                <div class="example-content">
+fetch('https://jsonplaceholder.typicode.com/todos/1')
+  .then(response => response.json())
+  .then(data => console.log(data));
+                </div>
+            </div>
+            <div class="visual-output">
+                <h4>Try It</h4>
+                <div class="console-output" id="fetch-output"></div>
+                <button class="btn" onclick="runFetchAPI()">Run Fetch API</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title"><i class="fas fa-cubes"></i> Classes & OOP</h2>
+    <div class="concept-card">
+        <h3><i class="fas fa-cube"></i> Object-Oriented Programming</h3>
+        <p>Use <span class="js-keyword">class</span> to create objects and inheritance in JavaScript.</p>
+        <div class="example-container">
+            <div class="code-example">
+                <div class="example-header">JavaScript Code</div>
+                <div class="example-content">
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+  speak() {
+    return this.name + " makes a noise.";
+  }
+}
+let dog = new Animal("Dog");
+console.log(dog.speak());
+                </div>
+            </div>
+            <div class="visual-output">
+                <h4>Try It</h4>
+                <div class="console-output" id="oop-output"></div>
+                <button class="btn" onclick="runOOP()">Run OOP Example</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title"><i class="fas fa-puzzle-piece"></i> Modules</h2>
+    <div class="concept-card">
+        <h3><i class="fas fa-box"></i> Import & Export</h3>
+        <p>JavaScript modules help organize code. Use <span class="js-keyword">export</span> and <span class="js-keyword">import</span> (in supported environments).</p>
+        <div class="example-container">
+            <div class="code-example">
+                <div class="example-header">JavaScript Code</div>
+                <div class="example-content">
+// module.js
+export function greet(name) {
+  return `Hello, ${name}!`;
+}
+// main.js
+import { greet } from './module.js';
+console.log(greet("Alice"));
+                </div>
+            </div>
+            <div class="visual-output">
+                <h4>Note</h4>
+                <div class="console-output">Modules require a server or build tool to run in the browser.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title"><i class="fas fa-search"></i> Regular Expressions</h2>
+    <div class="concept-card">
+        <h3><i class="fas fa-asterisk"></i> Pattern Matching</h3>
+        <p>Use <span class="js-keyword">RegExp</span> to search and match patterns in strings.</p>
+        <div class="example-container">
+            <div class="code-example">
+                <div class="example-header">JavaScript Code</div>
+                <div class="example-content">
+let text = "My email is test@example.com";
+let emailPattern = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z]{2,}\b/i;
+console.log(emailPattern.test(text)); // true
+                </div>
+            </div>
+            <div class="visual-output">
+                <h4>Try It</h4>
+                <div class="console-output" id="regex-output"></div>
+                <button class="btn" onclick="runRegex()">Run Regex</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title"><i class="fas fa-bug"></i> Debugging & Best Practices</h2>
+    <div class="concept-card">
+        <h3><i class="fas fa-tools"></i> Debugging Tools</h3>
+        <p>Use <span class="js-keyword">console.log()</span>, browser DevTools, and follow best practices for clean code.</p>
+        <div class="example-container">
+            <div class="code-example">
+                <div class="example-header">JavaScript Code</div>
+                <div class="example-content">
+function buggyFunction(num) {
+  // Intentional bug: should be num * 2
+  return num + 2;
+}
+console.log(buggyFunction(5)); // 7
+// Use DevTools to debug!
+                </div>
+            </div>
+            <div class="visual-output">
+                <h4>Try It</h4>
+                <div class="console-output" id="debug-output"></div>
+                <button class="btn" onclick="runDebug()">Run Debug Example</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title"><i class="fas fa-vial"></i> Testing JavaScript</h2>
+    <div class="concept-card">
+        <h3><i class="fas fa-check-double"></i> Writing Tests</h3>
+        <p>Testing helps ensure your code works as expected. You can write simple tests using functions or use frameworks like Jest.</p>
+        <div class="example-container">
+            <div class="code-example">
+                <div class="example-header">JavaScript Code</div>
+                <div class="example-content">
+function add(a, b) {
+  return a + b;
+}
+function testAdd() {
+  if (add(2, 3) === 5) {
+    console.log("Test passed!");
+  } else {
+    console.log("Test failed!");
+  }
+}
+testAdd();
+                </div>
+            </div>
+            <div class="visual-output">
+                <h4>Try It</h4>
+                <div class="console-output" id="test-output"></div>
+                <button class="btn" onclick="runTest()">Run Test</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+                    <div class="concept-card">
+                        <h3><i class="fas fa-sync-alt"></i> Functions and Scope</h3>
+                        <p>Functions are blocks of code designed to perform a particular task. They are executed when invoked.</p>
+                        
+                        <div class="function-visual">
+                            <div class="function-step">
+                                <div class="step-number">1</div>
+                                <div>Function Declaration</div>
+                            </div>
+                            <div class="function-step">
+                                <div class="step-number">2</div>
+                                <div>Function Call</div>
+                            </div>
+                            <div class="function-step">
+                                <div class="step-number">3</div>
+                                <div>Execution of Function Body</div>
+                            </div>
+                            <div class="function-step">
+                                <div class="step-number">4</div>
+                                <div>Return Value</div>
+                            </div>
+                        </div>
+                        
+                        <div class="example-container">
+                            <div class="code-example">
+                                <div class="example-header">JavaScript Code</div>
+                                <div class="example-content">// Function declaration
+function greet(name) {
+  return `Hello, ${name}!`;
+}
+
+// Function expression
+const add = function(a, b) {
+  return a + b;
+};
+
+// Arrow function (ES6)
+const multiply = (a, b) => a * b;
+
+// Calling functions
+console.log(greet("Alice")); // Hello, Alice!
+console.log(add(5, 3)); // 8
+console.log(multiply(4, 6)); // 24</div>
+                            </div>
+                            <div class="visual-output">
+                                <h4>Function Output</h4>
+                                <div class="console-output" id="func-output"></div>
+                                <button class="btn" onclick="runFunctions()">Run Functions</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-sync"></i> Control Flow</h2>
+                    <div class="concept-card">
+                        <h3><i class="fas fa-code-branch"></i> Conditionals and Loops</h3>
+                        <p>Control the flow of your program with conditionals and loops.</p>
+                        
+                        <div class="visualizer">
+                            <div class="visual-box">
+                                <h4>If/Else Statement</h4>
+                                <div class="demo-box" id="conditional-box">Check Age</div>
+                                <input type="number" id="age-input" placeholder="Enter age" style="width:100%; padding:0.5rem; border-radius:4px; border:none; margin-top:0.5rem;">
+                                <button class="btn" style="margin-top:1rem; width:100%;" onclick="checkAge()">Check</button>
+                                <div class="console-output" id="conditional-output" style="margin-top:1rem; min-height:50px;"></div>
+                            </div>
+                            <div class="visual-box">
+                                <h4>For Loop</h4>
+                                <div class="array-box" id="loop-output"></div>
+                                <button class="btn" style="width:100%;" onclick="runLoop()">Run Loop</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-window-maximize"></i> DOM Manipulation</h2>
+                    <div class="concept-card">
+                        <h3><i class="fas fa-mouse-pointer"></i> Selecting and Modifying Elements</h3>
+                        <p>The Document Object Model (DOM) is a programming interface for HTML and XML documents.</p>
+                        
+                        <div class="example-container">
+                            <div class="code-example">
+                                <div class="example-header">JavaScript Code</div>
+                                <div class="example-content">// Select elements
+const header = document.querySelector('header');
+const buttons = document.querySelectorAll('button');
+
+// Modify elements
+header.style.backgroundColor = '#323330';
+header.style.padding = '20px';
+
+// Create new elements
+const newElement = document.createElement('div');
+newElement.textContent = 'New element created!';
+newElement.classList.add('new-div');
+document.body.appendChild(newElement);
+
+// Event handling
+buttons.forEach(button => {
+  button.addEventListener('click', () => {
+    button.textContent = 'Clicked!';
+  });
+});</div>
+                            </div>
+                            <div class="visual-output">
+                                <h4>DOM Playground</h4>
+                                <div id="dom-playground" style="background:#f0f0f0; padding:1.5rem; border-radius:var(--border-radius);">
+                                    <div id="dom-element" style="background:#4361ee; color:white; padding:1rem; border-radius:4px; margin-bottom:1rem;">Original Element</div>
+                                    <button id="dom-button" class="btn" style="background:#4cc9f0; color:#323330;">Click Me</button>
+                                </div>
+                                <button class="btn" onclick="runDOM()" style="margin-top:1rem;">Run DOM Code</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-bolt"></i> Modern JavaScript</h2>
+                    <div class="concept-card">
+                        <h3><i class="fas fa-sync"></i> Asynchronous JavaScript</h3>
+                        <p>Modern JavaScript uses promises and async/await to handle asynchronous operations.</p>
+                        
+                        <div class="visualizer">
+                            <div class="visual-box">
+                                <h4>Promises</h4>
+                                <div class="console-output" id="promise-output" style="min-height:150px;">Click "Run" to fetch data</div>
+                                <button class="btn" onclick="fetchWithPromise()" style="width:100%;">Fetch Data with Promise</button>
+                            </div>
+                            <div class="visual-box">
+                                <h4>Async/Await</h4>
+                                <div class="console-output" id="async-output" style="min-height:150px;">Click "Run" to fetch data</div>
+                                <button class="btn" onclick="fetchWithAsync()" style="width:100%;">Fetch Data with Async</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-code"></i> Practice Exercise</h2>
+                    <div class="concept-card">
+                        <h3><i class="fas fa-pen"></i> Create a Counter</h3>
+                        <p>Build a simple counter that increments and decrements a value.</p>
+                        
+                        <div class="code-editor">
+                            <div class="editor-header">
+                                <div>JavaScript Editor</div>
+                                <div class="editor-actions">
+                                    <button id="run-exercise">Run Code</button>
+                                    <button id="reset-exercise">Reset</button>
+                                </div>
+                            </div>
+                            <div class="editor-body">
+                                <textarea class="editor-code" id="exercise-editor">// Counter functionality
+let count = 0;
+
+function updateCounter() {
+  // Update the counter display
+  document.getElementById('counter-value').textContent = count;
+}
+
+function increment() {
+  // Increase the count by 1
+  count++;
+  updateCounter();
+}
+
+function decrement() {
+  // Decrease the count by 1
+  count--;
+  updateCounter();
+}
+
+// Initialize counter
+updateCounter();</textarea>
+                                <div class="editor-preview">
+                                    <h4>Counter Preview</h4>
+                                    <div style="text-align:center; margin-top:2rem;">
+                                        <h3>Counter: <span id="counter-value">0</span></h3>
+                                        <div style="display:flex; gap:1rem; justify-content:center; margin-top:1rem;">
+                                            <button class="btn" onclick="increment()" style="background:var(--success);">Increment (+)</button>
+                                            <button class="btn" onclick="decrement()" style="background:var(--danger);">Decrement (-)</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- JavaScript Live Code Editor -->
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-terminal"></i> JavaScript Live Code Editor</h2>
+                <div class="concept-card">
+                    <h3><i class="fas fa-play"></i> Try JavaScript Instantly</h3>
+                    <p>Write and run JavaScript code directly in your browser. The output will appear below the editor.</p>
+                <div class="code-editor" style="margin-bottom:1.5rem;">
+                <div class="editor-header">
+                <div>JavaScript Editor</div>
+                <div class="editor-actions">
+                    <button onclick="runLiveJSCode()">Run</button>
+                    <button onclick="resetLiveJSCode()">Reset</button>
+                </div>
+                </div>
+            <div class="editor-body" style="flex-direction:column;">
+                <textarea class="editor-code" id="js-live-editor" style="min-height:120px;">// Write your JavaScript code here
+console.log('Hello, JavaScript!');
+                </textarea>
+                <div class="console-output" id="js-live-output" style="margin-top:1rem; min-height:60px;"></div>
+            </div>
+            </div>
+            </div>
+    <div class="console-output" id="js-live-output-box" style="margin:1.5rem 0; min-height:80px; background:#181a20; color:#f8f8f2; border-radius:8px; font-family:monospace; font-size:1rem; padding:1rem; box-shadow:0 2px 8px rgba(67,97,238,0.08);">
+  <!-- Output will appear here -->
+</div>
+                
+</div>
+            </div>
+
+            
+
+            <div class="sidebar">
+                <h3 class="sidebar-title"><i class="fas fa-bookmark"></i> JavaScript Topics</h3>
+                <ul class="topic-list">
+                    <li><a href="#" class="active"><i class="fas fa-chevron-right"></i> Fundamentals</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Variables & Data Types</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Functions & Scope</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> String Methods</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Math & Date</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Error Handling</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> JSON & Local Storage</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Fetch API & AJAX</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Classes & OOP</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Modules</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Regular Expressions</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Debugging & Best Practices</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Testing JavaScript</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Control Flow</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> DOM Manipulation</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Asynchronous JS</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Practice Exercise</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> ES6 Features</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Arrays & Objects</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Events</a></li>
+</ul>
+
+                <div class="progress-container">
+                    <div class="progress-header">
+                        <span>Your Progress</span>
+                        <span>40%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 40%;"></div>
+                    </div>
+                    <button class="btn btn-block">Continue Learning</button>
+                </div>
+
+                <div style="margin-top: 1.5rem; background: rgba(0,0,0,0.3); padding:1.5rem; border-radius:var(--border-radius);">
+                    <h3 class="sidebar-title"><i class="fas fa-lightbulb"></i> JavaScript Tip</h3>
+                    <p>Use template literals for cleaner string concatenation:</p>
+                    <div class="code-example" style="margin-top:1rem;">
+                        <div class="example-content">// Instead of:
+const message = "Hello, " + name + "! You have " + count + " messages.";
+
+// Use:
+const message = `Hello, ${name}! You have ${count} messages.`;</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="container">
+        <p>&copy; 2023 WebDev Academy. All rights reserved.</p>
+        <p>Master JavaScript with our interactive tutorials and coding exercises.</p>
+    </footer>
+
+    <script>
+
+        // JavaScript Live Code Editor logic
+function runLiveJSCode() {
+    const code = document.getElementById('js-live-editor').value;
+    const outputDiv = document.getElementById('js-live-output-box');
+    outputDiv.textContent = '';
+    let log = [];
+    const originalLog = console.log;
+    console.log = function(...args) {
+        log.push(args.join(' '));
+        originalLog.apply(console, args);
+    };
+    try {
+        new Function(code)();
+        outputDiv.textContent = log.join('\n');
+    } catch (e) {
+        outputDiv.textContent = 'Error: ' + e.message;
+    }
+    console.log = originalLog;
+}
+function resetLiveJSCode() {
+    document.getElementById('js-live-editor').value = "// Write your JavaScript code here\nconsole.log('Hello, JavaScript!');";
+    document.getElementById('js-live-output-box').textContent = '';
+}
+// Display variables
+function displayVariables() {
+    const output = document.getElementById('var-output');
+    output.innerHTML = '';
+
+            // Simulate variable declaration and display
+            const name = "Alice";
+            const age = 30;
+            const isStudent = false;
+            const score = 95;
+            const colors = ["red", "green", "blue"];
+            const person = { firstName: "John", lastName: "Doe" };
+            
+            output.innerHTML += `name: ${name}\n`;
+            output.innerHTML += `age: ${age}\n`;
+            output.innerHTML += `isStudent: ${isStudent}\n`;
+            output.innerHTML += `score: ${score}\n`;
+            output.innerHTML += `colors: ${colors.join(', ')}\n`;
+            output.innerHTML += `person: ${JSON.stringify(person)}`;
+        }
+        
+        // Run functions
+        function runFunctions() {
+            const output = document.getElementById('func-output');
+            output.innerHTML = '';
+            
+            // Define and run functions
+            function greet(name) {
+                return `Hello, ${name}!`;
+            }
+            
+            const add = function(a, b) {
+                return a + b;
+            };
+            
+            const multiply = (a, b) => a * b;
+            
+            output.innerHTML += greet("Alice") + '\n';
+            output.innerHTML += add(5, 3) + '\n';
+            output.innerHTML += multiply(4, 6) + '\n';
+        }
+        
+        // Conditional example
+        function checkAge() {
+            const ageInput = document.getElementById('age-input');
+            const output = document.getElementById('conditional-output');
+            const box = document.getElementById('conditional-box');
+            
+            const age = parseInt(ageInput.value) || 0;
+            
+            if (age >= 18) {
+                output.innerHTML = "You are an adult.";
+                box.style.background = "#4cc9f0";
+            } else if (age > 0) {
+                output.innerHTML = "You are a minor.";
+                box.style.background = "#ff9f1c";
+            } else {
+                output.innerHTML = "Please enter a valid age.";
+                box.style.background = "#e71d36";
+            }
+        }
+        
+        // Loop example
+        function runLoop() {
+            const output = document.getElementById('loop-output');
+            output.innerHTML = '';
+            
+            for (let i = 1; i <= 5; i++) {
+                const item = document.createElement('div');
+                item.className = 'array-item';
+                item.textContent = i;
+                output.appendChild(item);
+            }
+        }
+        
+        // DOM manipulation
+        function runDOM() {
+            const element = document.getElementById('dom-element');
+            const button = document.getElementById('dom-button');
+            
+            // Change styles
+            element.style.backgroundColor = '#323330';
+            element.style.padding = '20px';
+            element.textContent = 'Modified with JavaScript!';
+            
+            // Add event listener
+            button.addEventListener('click', function() {
+                this.textContent = 'Clicked!';
+                this.style.background = '#2ec4b6';
+            });
+        }
+        
+        // Async examples
+        function fetchWithPromise() {
+            const output = document.getElementById('promise-output');
+            output.innerHTML = "Fetching data...";
+            
+            // Simulate API call with promise
+            new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve({ id: 1, title: "JavaScript Promise", completed: true });
+                }, 1500);
+            })
+            .then(data => {
+                output.innerHTML = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                output.innerHTML = "Error: " + error.message;
+            });
+        }
+        
+        async function fetchWithAsync() {
+            const output = document.getElementById('async-output');
+            output.innerHTML = "Fetching data...";
+            
+            try {
+                // Simulate API call with async/await
+                const data = await new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve({ id: 2, title: "Async/Await", completed: true });
+                    }, 1500);
+                });
+                
+                output.innerHTML = JSON.stringify(data, null, 2);
+            } catch (error) {
+                output.innerHTML = "Error: " + error.message;
+            }
+        }
+        
+        // Exercise editor functionality
+        document.getElementById('run-exercise').addEventListener('click', function() {
+            try {
+                // Clear previous implementation
+                count = 0;
+                const exerciseCode = document.getElementById('exercise-editor').value;
+                
+                // Create a new function from the code
+                new Function(exerciseCode)();
+                
+                // Initialize the counter
+                updateCounter();
+            } catch (error) {
+                console.error("Error executing code:", error);
+                alert("There was an error in your code. Please check the syntax.");
+            }
+        });
+        
+        document.getElementById('reset-exercise').addEventListener('click', function() {
+            document.getElementById('exercise-editor').value = `// Counter functionality
+let count = 0;
+
+function updateCounter() {
+  // Update the counter display
+  document.getElementById('counter-value').textContent = count;
+}
+
+function increment() {
+  // Increase the count by 1
+  count++;
+  updateCounter();
+}
+
+function decrement() {
+  // Decrease the count by 1
+  count--;
+  updateCounter();
+}
+
+// Initialize counter
+updateCounter();`;
+            
+            count = 0;
+            updateCounter();
+        });
+        
+        // Counter functionality for exercise
+        let count = 0;
+        
+        function updateCounter() {
+            document.getElementById('counter-value').textContent = count;
+        }
+        
+        function increment() {
+            count++;
+            updateCounter();
+        }
+        
+        function decrement() {
+            count--;
+            updateCounter();
+        }
+        
+        // Initialize
+        updateCounter();
+
+        // Add these scripts at the end of your <script> block -->
+
+function runStringMethods() {
+    let str = "WebDev Academy";
+    let output = '';
+    output += str.length + '\\n';
+    output += str.toUpperCase() + '\\n';
+    output += str.slice(0, 6) + '\\n';
+    output += str.replace("Academy", "School");
+    document.getElementById('string-output').textContent = output;
+}
+function runMathDate() {
+    let now = new Date();
+    let output = '';
+    output += Math.round(4.7) + '\\n';
+    output += Math.max(10, 20, 30) + '\\n';
+    output += now.getFullYear();
+    document.getElementById('math-output').textContent = output;
+}
+function runErrorHandling() {
+    let output = '';
+    try {
+        let result = notDefinedVar + 1;
+    } catch (error) {
+        output = "Error caught: " + error.message;
+    }
+    document.getElementById('error-output').textContent = output;
+}
+function runJSONLocalStorage() {
+    let user = { name: "Alice", age: 25 };
+    localStorage.setItem("user", JSON.stringify(user));
+    let saved = JSON.parse(localStorage.getItem("user"));
+    document.getElementById('json-output').textContent = saved.name;
+}
+function runFetchAPI() {
+    let output = document.getElementById('fetch-output');
+    output.textContent = "Fetching...";
+    fetch('https://jsonplaceholder.typicode.com/todos/1')
+        .then(response => response.json())
+        .then(data => { output.textContent = JSON.stringify(data, null, 2); })
+        .catch(err => { output.textContent = "Error: " + err.message; });
+}
+function runOOP() {
+    class Animal {
+        constructor(name) { this.name = name; }
+        speak() { return this.name + " makes a noise."; }
+    }
+    let dog = new Animal("Dog");
+    document.getElementById('oop-output').textContent = dog.speak();
+}
+function runRegex() {
+    let text = "My email is test@example.com";
+    let emailPattern = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z]{2,}\b/i;
+    document.getElementById('regex-output').textContent = emailPattern.test(text);
+}
+function runDebug() {
+    function buggyFunction(num) { return num + 2; }
+    document.getElementById('debug-output').textContent = buggyFunction(5);
+}
+function runTest() {
+    function add(a, b) { return a + b; }
+    function testAdd() {
+        if (add(2, 3) === 5) {
+            return "Test passed!";
+        } else {
+            return "Test failed!";
+        }
+    }
+    document.getElementById('test-output').textContent = testAdd();
+}
+
+    </script>
+
+    <button id="liveCodeBtn" title="Open Live Code Editor"
+  style="position:fixed;bottom:32px;right:32px;z-index:9999;background:var(--primary);color:white;border:none;border-radius:50px;padding:1rem 2.2rem;font-size:1.1rem;font-weight:700;box-shadow:0 6px 24px rgba(0,0,0,0.18);cursor:pointer;transition:background 0.2s;">
+  <i class="fas fa-terminal"></i> Live Code Editor
+</button>
+<script>
+document.getElementById('liveCodeBtn').onclick = function() {
+  // Open the live code editor and pass the current file name as a query parameter
+  window.open('code.html?from=javascript.html', '_blank');
+};
+</script>
+
+<button id="takeExamBtn" title="Take HTML Exam"
+  style="position:fixed;bottom:90px;right:32px;z-index:9999;background:var(--success);color:white;border:none;border-radius:50px;padding:1rem 2.2rem;font-size:1.1rem;font-weight:700;box-shadow:0 6px 24px rgba(0,0,0,0.18);cursor:pointer;transition:background 0.2s;">
+  <i class="fas fa-clipboard-check"></i> Take Exam
+</button>
+<script>
+document.getElementById('takeExamBtn').onclick = function() {
+  window.open('javascript_exam.html', '_blank');
+};
+</script>
+
+<script>
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const navLinks = document.querySelector('.nav-links');
+hamburgerBtn.addEventListener('click', function() {
+    navLinks.classList.toggle('open');
+    // Optionally toggle icon
+    this.innerHTML = navLinks.classList.contains('open')
+        ? '<i class="fas fa-times"></i>'
+        : '<i class="fas fa-bars"></i>';
+});
+// Optional: Close menu when a link is clicked (for single-page feel)
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        if(window.innerWidth <= 768) {
+            navLinks.classList.remove('open');
+            hamburgerBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebDev Academy | Learn HTML, CSS & JavaScript</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #f72585;
+            --border-radius: 8px;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: var(--light);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--light);
+        }
+
+        .logo i {
+            color: var(--success);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--primary);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--success), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            margin-left: 1rem;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+        }
+
+        /* Add this at the end of your <style> section */
+        .learn-more-btn {
+            display: block;
+            margin: 1rem 0 0 0;
+            padding: 0.3rem 1rem;
+            font-size: 0.85rem;
+            width: fit-content;
+            height: auto;
+            border-radius: 5px;
+            line-height: 1.2;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--accent);
+        }
+
+        .feature-card i {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--success);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .modules {
+            margin: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .module-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .module-tab {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .module-tab.active {
+            background: var(--primary);
+        }
+
+        .module-tab:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .module-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            min-height: 500px;
+            display: none;
+        }
+
+        .module-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--success);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .lesson-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .lesson-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .lesson-card.completed {
+            border-left: 4px solid var(--success);
+        }
+
+        .lesson-card h4 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .lesson-card i {
+            color: var(--success);
+        }
+
+        .lesson-card p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .code-editor {
+            background: #1e1e1e;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .editor-header {
+            background: #333;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .editor-actions button {
+            background: #555;
+            border: none;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 0.5rem;
+        }
+
+        .editor-body {
+            display: flex;
+            min-height: 300px;
+        }
+
+        .editor-code {
+            flex: 1;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            color: #d4d4d4;
+            background: #1e1e1e;
+            border: none;
+            resize: none;
+            outline: none;
+            font-size: 1rem;
+            line-height: 1.5;
+            tab-size: 4;
+        }
+
+        .editor-preview {
+            flex: 1;
+            background: white;
+            padding: 1rem;
+            color: var(--dark);
+            overflow: auto;
+        }
+
+        .visual-example {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin: 2rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .visual-example img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 1rem;
+        }
+
+        .example-description {
+            max-width: 600px;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .editor-body {
+                flex-direction: column;
+            }
+            
+            .editor-code, .editor-preview {
+                min-height: 250px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .lesson-list {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .lesson-card {
+                padding: 1rem;
+                font-size: 0.98rem;
+            }
+            .lesson-card h4 {
+                font-size: 1.1rem;
+            }
+            .learn-more-btn {
+                font-size: 0.95rem;
+                padding: 0.4rem 1.2rem;
+                margin-top: 0.7rem;
+            }
+            .module-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .visual-example {
+                padding: 1rem;
+            }
+            .visual-example img {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-code"></i>
+                    <span>WebDev Academy</span>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html" class="active">Home</a>
+                    <a href="courses.html">Courses</a>
+                    <a href="resources.html">Resources</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                    <button id="signupNavBtn" style="background: var(--success); color: white; border: none; border-radius: 20px; padding: 0.5rem 1.3rem; font-weight: 600; margin-left: 1rem; cursor: pointer; font-size: 1rem;">Sign Up</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Learn Web Development From Scratch</h1>
+            <p>Master HTML, CSS, and JavaScript with our interactive, visual learning platform. Perfect for beginners and advanced learners alike.</p>
+            <div class="hero-buttons">
+                <a href="#modules" class="btn">Start Learning</a>
+                <a href="#" class="btn btn-outline">View Curriculum</a>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <i class="fas fa-laptop-code"></i>
+                <h3>Step-by-Step Lessons</h3>
+                <p>Progress from absolute beginner to advanced concepts with our carefully structured curriculum.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-images"></i>
+                <h3>Visual Learning</h3>
+                <p>Understand complex concepts through diagrams, examples, and interactive visualizations.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-code"></i>
+                <h3>Hands-On Practice</h3>
+                <p>Apply what you learn with built-in code editors and real-time previews.</p>
+            </div>
+        </section>
+
+        <section id="modules" class="modules">
+            <h2 class="section-title">Learning Path</h2>
+            <div class="module-tabs">
+                <div class="module-tab active" data-module="html">HTML Fundamentals</div>
+                <div class="module-tab" data-module="css">CSS Styling</div>
+                <div class="module-tab" data-module="js">JavaScript Programming</div>
+            </div>
+
+            <div class="module-content active" id="html-module">
+                <div class="module-header">
+                    
+                    <h3><i class="fab fa-html5"></i> HTML Fundamentals</h3>
+                    
+                </div>
+
+                <div class="lesson-list" style="display: flex; justify-content: center;">
+                    <div class="lesson-card completed" style="min-height: 320px; font-size: 1.1rem; display: flex; flex-direction: column; justify-content: space-between; width: 100%; max-width: 1000px; margin: 0 auto; align-items: center; text-align: center;">
+                        <div style="width: 100%;">
+                            <h4 style="justify-content: center;"><i class="fas fa-check-circle"></i> HTML Fundamentals Topics</h4>
+                            <ul style="margin: 1.2rem 0 1.5rem 0; padding: 0; list-style: none; font-size: 1.05em; display: flex; flex-wrap: wrap; gap: 1.5rem 2.5rem; justify-content: center; align-items: center;">
+                                <li>Introduction to HTML</li>
+                                <li>Text Formatting</li>
+                                <li>Links and Images</li>
+                                <li>HTML Lists</li>
+                                <li>HTML Tables</li>
+                                <li>HTML Forms</li>
+                                <li>HTML Divs, Spans, and Page Layout</li>
+                                <li>HTML Embedding Media (Audio, Video, Iframes)</li>
+                                <li>HTML Semantic Elements</li>
+                                <li>Final Project Example: Personal Webpage</li>
+                            </ul>
+                            <a href="html.html" class="btn btn-outline learn-more-btn" style="font-size: 1.05rem; padding: 0.6rem 3.5rem; min-width: 220px; text-align: center; margin: 1.2rem auto 0 auto; display: block;">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="visual-example">
+                    <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="HTML Code Example">
+                    <div class="example-description">
+                        <h4>HTML Structure Example</h4>
+                        <p>Every HTML document starts with a doctype declaration, followed by the html element which contains the head and body sections. The head contains meta information, while the body contains the visible content.</p>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="module-content" id="css-module">
+                <div class="module-header">
+                    <h3><i class="fab fa-css3-alt"></i> CSS Styling</h3>
+                    <div class="progress-container">
+                        
+                    </div>
+                </div>
+                <div class="lesson-list" style="display: flex; justify-content: center;">
+                    <div class="lesson-card" style="min-height: 320px; font-size: 1.1rem; display: flex; flex-direction: column; justify-content: space-between; width: 100%; max-width: 1000px; margin: 0 auto; align-items: center; text-align: center;">
+                        <div style="width: 100%;">
+                            <h4 style="justify-content: center;"><i class="far fa-circle"></i> CSS Topics</h4>
+                            <ul style="margin: 1.2rem 0 1.5rem 0; padding: 0; list-style: none; font-size: 1.05em; display: flex; flex-wrap: wrap; gap: 1.5rem 2.5rem; justify-content: center; align-items: center;">
+                                <li>CSS Syntax</li>
+                                <li>Ways to use CSS</li>
+                                <li>Colors and Backgrounds</li>
+                                <li>Typography</li>
+                                <li>Box Model</li>
+                                <li>Width, Height, and Display</li>
+                                <li>Flexbox Layout</li>
+                                <li>Positioning Elements</li>
+                                <li>CSS Grid</li>
+                                <li>Hover, Pseudo-Classes, and Transitions</li>
+                                <li>Responsive Design</li>
+                                <li>Final Project Example</li>
+                            </ul>
+                            <a href="css.html" class="btn btn-outline learn-more-btn" style="font-size: 1.05rem; padding: 0.6rem 3.5rem; min-width: 220px; text-align: center; margin: 1.2rem auto 0 auto; display: block;">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="visual-example">
+                    <img src="https://blog.alexdevero.com/wp-content/uploads/2015/02/css-code-e1517469545230.jpeg" alt="CSS Code Example">
+                    <div class="example-description">
+                        <h4>CSS Styling Example</h4>
+                        <p>This example shows how to style a simple HTML page using CSS. The styles include background colors, text colors, and layout properties to create a visually appealing design.</p>
+                    </div>
+                </div> 
+
+            </div>
+            <div class="module-content" id="js-module">
+                <div class="module-header">
+                    <h3><i class="fab fa-js"></i> JavaScript Programming</h3>
+                    <div class="progress-container">
+                        <div>Progress: <span id="js-progress-text">0%</span></div>
+                        <div class="progress-bar">
+                            <div class="progress" id="js-progress" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lesson-list" style="display: flex; justify-content: center;">
+                    <div class="lesson-card" style="min-height: 320px; font-size: 1.1rem; display: flex; flex-direction: column; justify-content: space-between; width: 100%; max-width: 1000px; margin: 0 auto; align-items: center; text-align: center;">
+                        <div style="width: 100%;">
+                            <h4 style="justify-content: center;"><i class="far fa-circle"></i> JavaScript Topics</h4>
+                            <ul style="margin: 1.2rem 0 1.5rem 0; padding: 0; list-style: none; font-size: 1.05em; display: flex; flex-wrap: wrap; gap: 1.5rem 2.5rem; justify-content: center; align-items: center;">
+                                <li>JavaScript Basics</li>
+                                <li>Functions and Scope</li>
+                                <li>DOM Manipulation</li>
+                                <li>Events and Listeners</li>
+                                <li>Asynchronous JavaScript</li>
+                            </ul>
+                            <a href="javascript.html" class="btn btn-outline learn-more-btn" style="font-size: 1.05rem; padding: 0.6rem 3.5rem; min-width: 220px; text-align: center; margin: 1.2rem auto 0 auto; display: block;">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="visual-example">
+                    <img src="https://www.in2code.de/fileadmin/_processed_/0/b/csm_code_javascript_deb0c3970a.jpg" alt="JavaScript Code Example" width="900px">
+                    <div class="example-description">
+                        <h4>JavaScript Function Example</h4>
+                        <p>This example demonstrates a simple JavaScript function that manipulates the DOM by changing the text of an HTML element when a button is clicked. It showcases event handling and dynamic content updates.</p>
+                    </div>
+                </div>
+                </main>
+
+    <footer class="container">
+        <p>&copy; 2023 WebDev Academy. All rights reserved.</p>
+        <p>Learn HTML, CSS, and JavaScript from scratch to advanced level.</p>
+    </footer>
+
+    <!-- Signup/Login Modal -->
+    <div id="signupModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.4); z-index:9999; align-items:center; justify-content:center;">
+        <form id="signupForm" style="background:white; padding:40px 30px; border-radius:16px; box-shadow:0 8px 32px rgba(0,0,0,0.2); min-width:320px; max-width:90vw; margin:auto; display:flex; flex-direction:column; gap:18px;">
+            <h2 style="color:var(--secondary); margin-bottom:10px;">Sign Up</h2>
+            <input type="text" id="signupName" placeholder="Full Name" required style="padding:10px; border-radius:6px; border:1px solid #ccc; font-size:1rem;">
+            <input type="email" id="signupEmail" placeholder="Email" required style="padding:10px; border-radius:6px; border:1px solid #ccc; font-size:1rem;">
+            <input type="password" id="signupPassword" placeholder="Password" required minlength="6" style="padding:10px; border-radius:6px; border:1px solid #ccc; font-size:1rem;">
+            <button type="submit" style="background:var(--primary); color:white; border:none; border-radius:6px; padding:12px; font-size:1rem; font-weight:600; cursor:pointer;">Create Account</button>
+            <button type="button" id="showLogin" style="background:var(--accent); color:white; border:none; border-radius:6px; padding:8px; font-size:0.95rem; cursor:pointer;">Already have an account? Login</button>
+            <button type="button" id="closeSignup" style="background:var(--danger); color:white; border:none; border-radius:6px; padding:8px; font-size:0.95rem; cursor:pointer;">Cancel</button>
+            <div id="signupMsg" style="margin-top:10px; font-size:1rem;"></div>
+        </form>
+        <form id="loginForm" style="display:none; background:white; padding:40px 30px; border-radius:16px; box-shadow:0 8px 32px rgba(0,0,0,0.2); min-width:320px; max-width:90vw; margin:auto; flex-direction:column; gap:18px;">
+            <h2 style="color:var(--secondary); margin-bottom:10px;">Login</h2>
+            <input type="email" id="loginEmail" placeholder="Email" required style="padding:10px; border-radius:6px; border:1px solid #ccc; font-size:1rem;">
+            <input type="password" id="loginPassword" placeholder="Password" required minlength="6" style="padding:10px; border-radius:6px; border:1px solid #ccc; font-size:1rem;">
+            <button type="submit" style="background:var(--primary); color:white; border:none; border-radius:6px; padding:12px; font-size:1rem; font-weight:600; cursor:pointer;">Login</button>
+            <button type="button" id="showSignup" style="background:var(--accent); color:white; border:none; border-radius:6px; padding:8px; font-size:0.95rem; cursor:pointer;">Don't have an account? Sign Up</button>
+            <button type="button" id="closeLogin" style="background:var(--danger); color:white; border:none; border-radius:6px; padding:8px; font-size:0.95rem; cursor:pointer;">Cancel</button>
+            <div id="loginMsg" style="margin-top:10px; font-size:1rem;"></div>
+        </form>
+    </div>
+    <!-- End Signup/Login Modal -->
+
+    <script>
+        // Module switching functionality
+        document.querySelectorAll('.module-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and modules
+                document.querySelectorAll('.module-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.module-content').forEach(m => m.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Show corresponding module
+                const moduleId = `${tab.dataset.module}-module`;
+                document.getElementById(moduleId).classList.add('active');
+            });
+        });
+
+        // Lesson card interaction
+        document.querySelectorAll('.lesson-card').forEach(card => {
+            card.addEventListener('click', function() {
+                if (!this.classList.contains('completed')) {
+                    this.classList.add('completed');
+                    const icon = this.querySelector('i');
+                    icon.classList.remove('fa-circle');
+                    icon.classList.add('fa-check-circle');
+                    
+                    // Update progress
+                    updateModuleProgress(this.closest('.module-content').id);
+                }
+            });
+        });
+
+        // Update progress function
+        function updateModuleProgress(moduleId) {
+            const module = document.getElementById(moduleId);
+            const totalCards = module.querySelectorAll('.lesson-card').length;
+            const completedCards = module.querySelectorAll('.lesson-card.completed').length;
+            const progressPercent = Math.round((completedCards / totalCards) * 100);
+            
+            // Update progress bar and text
+            const progressBar = module.querySelector('.progress');
+            const progressText = module.querySelector('.progress-container span');
+            
+            progressBar.style.width = `${progressPercent}%`;
+            progressText.textContent = `${progressPercent}%`;
+        }
+
+        // Signup/Login Modal logic
+        const signupBtn = document.getElementById('signupNavBtn');
+        const signupModal = document.getElementById('signupModal');
+        const signupForm = document.getElementById('signupForm');
+        const loginForm = document.getElementById('loginForm');
+        const showLogin = document.getElementById('showLogin');
+        const showSignup = document.getElementById('showSignup');
+        const closeSignup = document.getElementById('closeSignup');
+        const closeLogin = document.getElementById('closeLogin');
+        // Show signup modal
+        signupBtn.onclick = function() {
+            signupModal.style.display = 'flex';
+            signupForm.style.display = 'flex';
+            loginForm.style.display = 'none';
+        };
+        // Switch to login
+        showLogin.onclick = function() {
+            signupForm.style.display = 'none';
+            loginForm.style.display = 'flex';
+        };
+        // Switch to signup
+        showSignup.onclick = function() {
+            loginForm.style.display = 'none';
+            signupForm.style.display = 'flex';
+        };
+        // Close modals
+        closeSignup.onclick = closeLogin.onclick = function() {
+            signupModal.style.display = 'none';
+            signupForm.reset();
+            loginForm.reset();
+            document.getElementById('signupMsg').innerHTML = '';
+            document.getElementById('loginMsg').innerHTML = '';
+        };
+        // Store users in localStorage
+        function getUsers() {
+            return JSON.parse(localStorage.getItem('wda_users') || '[]');
+        }
+        function saveUsers(users) {
+            localStorage.setItem('wda_users', JSON.stringify(users));
+        }
+        // Signup form validation and storage
+        signupForm.onsubmit = function(e) {
+            e.preventDefault();
+            var name = document.getElementById('signupName').value.trim();
+            var email = document.getElementById('signupEmail').value.trim().toLowerCase();
+            var password = document.getElementById('signupPassword').value;
+            var msg = '';
+            if (!name) msg = 'Please enter your name.';
+            else if (!email.match(/^\S+@\S+\.\S+$/)) msg = 'Please enter a valid email.';
+            else if (password.length < 6) msg = 'Password must be at least 6 characters.';
+            else {
+                var users = getUsers();
+                if (users.find(u => u.email === email)) {
+                    msg = 'Email already registered.';
+                }
+            }
+            if (msg) {
+                document.getElementById('signupMsg').innerHTML = '<span style="color:var(--danger);">' + msg + '</span>';
+            } else {
+                var users = getUsers();
+                users.push({ name, email, password });
+                saveUsers(users);
+                document.getElementById('signupMsg').innerHTML = '<span style="color:var(--success);">Signup successful! You can now login.</span>';
+                setTimeout(function(){
+                    signupModal.style.display = 'none';
+                    signupForm.reset();
+                    document.getElementById('signupMsg').innerHTML = '';
+                }, 1500);
+            }
+        };
+        // User greeting logic
+        function setGreeting() {
+            const navLinks = document.querySelector('.nav-links');
+            let user = JSON.parse(localStorage.getItem('wda_loggedin_user') || 'null');
+            let greetingEl = document.getElementById('userGreeting');
+            if (!greetingEl) {
+                greetingEl = document.createElement('span');
+                greetingEl.id = 'userGreeting';
+                greetingEl.style.marginLeft = '1.2rem';
+                greetingEl.style.fontWeight = '600';
+                greetingEl.style.color = 'var(--success)';
+                navLinks.appendChild(greetingEl);
+            }
+            if (user) {
+                greetingEl.innerHTML = `Hello, ${user.name}! <button id="logoutBtn" style="margin-left:0.7rem; background:var(--danger); color:white; border:none; border-radius:12px; padding:0.2rem 0.9rem; font-size:0.98rem; cursor:pointer;">Logout</button>`;
+                document.getElementById('signupNavBtn').style.display = 'none';
+                document.getElementById('logoutBtn').onclick = function() {
+                    localStorage.removeItem('wda_loggedin_user');
+                    setGreeting();
+                };
+            } else {
+                greetingEl.innerHTML = '';
+                document.getElementById('signupNavBtn').style.display = '';
+            }
+        }
+        // On successful login, store user and show greeting
+        loginForm.onsubmit = function(e) {
+            e.preventDefault();
+            var email = document.getElementById('loginEmail').value.trim().toLowerCase();
+            var password = document.getElementById('loginPassword').value;
+            var msg = '';
+            var users = getUsers();
+            var user = users.find(u => u.email === email && u.password === password);
+            if (!email.match(/^\S+@\S+\.\S+$/)) msg = 'Please enter a valid email.';
+            else if (password.length < 6) msg = 'Password must be at least 6 characters.';
+            else if (!user) msg = 'Invalid email or password.';
+            if (msg) {
+                document.getElementById('loginMsg').innerHTML = '<span style="color:var(--danger);">' + msg + '</span>';
+            } else {
+                localStorage.setItem('wda_loggedin_user', JSON.stringify(user));
+                document.getElementById('loginMsg').innerHTML = '<span style="color:var(--success);">Login successful!</span>';
+                setTimeout(function(){
+                    signupModal.style.display = 'none';
+                    loginForm.reset();
+                    document.getElementById('loginMsg').innerHTML = '';
+                    setGreeting();
+                    alert('Login successfully!');
+                }, 1000);
+            }
+        };
+        // On page load, show greeting if logged in
+        setGreeting();
+        // Close modal on outside click
+        signupModal.onclick = function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+                signupForm.reset();
+                loginForm.reset();
+                document.getElementById('signupMsg').innerHTML = '';
+                document.getElementById('loginMsg').innerHTML = '';
+            }
+        };
+    </script>
+</body>
+</html>

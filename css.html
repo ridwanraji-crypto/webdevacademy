@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Styling Mastery - WebDev Academy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #1dd1a1;
+            --warning: #feca57;
+            --danger: #ff6b6b;
+            --border-radius: 8px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #2a5a78);
+            color: var(--light);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 2rem;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--light);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--primary);
+        }
+
+        .page-header {
+            text-align: center;
+            padding: 4rem 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(106, 17, 203, 0.1), rgba(37, 117, 252, 0.1));
+            z-index: -1;
+            border-radius: var(--border-radius);
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--accent), var(--warning));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0% { text-shadow: 0 0 10px rgba(255, 107, 107, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(255, 107, 107, 0.8); }
+            100% { text-shadow: 0 0 10px rgba(255, 107, 107, 0.5); }
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(29, 209, 161, 0.2);
+            color: var(--success);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        @media (max-width: 900px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .main-content {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--glass-border);
+        }
+
+        .sidebar {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            align-self: start;
+            position: sticky;
+            top: 100px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .section-title i {
+            color: var(--accent);
+        }
+
+        .concept-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            border: 1px solid var(--glass-border);
+        }
+
+        .concept-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .concept-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .concept-card h3 i {
+            font-size: 1.2rem;
+        }
+
+        .example-container {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .code-example {
+            flex: 1;
+            min-width: 300px;
+            background: #1e1e1e;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .example-header {
+            background: #333;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .example-content {
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.5;
+            min-height: 150px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            color: #f8f8f2;
+        }
+
+        .visual-output {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            color: var(--dark);
+            box-shadow: var(--shadow);
+        }
+
+        .visual-output h4 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .css-property {
+            display: inline-block;
+            background: rgba(37, 117, 252, 0.2);
+            color: var(--secondary);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .visualizer {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .visual-box {
+            background: var(--glass);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+        }
+
+        .demo-box {
+            width: 100px;
+            height: 100px;
+            background: var(--primary);
+            margin: 1rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .control-group label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .color-box {
+            width: 100%;
+            height: 150px;
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .gradient-box {
+            width: 100%;
+            height: 150px;
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+        }
+
+        .flex-container {
+            display: flex;
+            gap: 10px;
+            padding: 1rem;
+            background: #f0f0f0;
+            border-radius: var(--border-radius);
+            min-height: 200px;
+            margin: 1rem 0;
+        }
+
+        .flex-item {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 80px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 1rem;
+            background: #f0f0f0;
+            border-radius: var(--border-radius);
+            min-height: 200px;
+            margin: 1rem 0;
+        }
+
+        .grid-item {
+            background: var(--secondary);
+            color: white;
+            padding: 1rem;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-title {
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--primary);
+        }
+
+        .topic-list {
+            list-style: none;
+        }
+
+        .topic-list li {
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .topic-list a {
+            color: var(--light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            transition: var(--transition);
+        }
+
+        .topic-list a:hover {
+            color: var(--accent);
+        }
+
+        .topic-list a i {
+            width: 25px;
+            text-align: center;
+        }
+
+        .topic-list a.active {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .progress-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--success);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .quiz-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .quiz-question {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 0.8rem;
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .quiz-option.selected {
+            background: rgba(106, 17, 203, 0.5);
+            border: 1px solid var(--primary);
+        }
+
+        .quiz-option.correct {
+            background: rgba(29, 209, 161, 0.3);
+            border: 1px solid var(--success);
+        }
+
+        .quiz-option.incorrect {
+            background: rgba(255, 107, 107, 0.3);
+            border: 1px solid var(--danger);
+        }
+
+        .quiz-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            display: none;
+        }
+
+        .feedback-correct {
+            background: rgba(29, 209, 161, 0.2);
+            border: 1px solid var(--success);
+            display: block;
+        }
+
+        .feedback-incorrect {
+            background: rgba(255, 107, 107, 0.2);
+            border: 1px solid var(--danger);
+            display: block;
+        }
+
+        .quiz-result {
+            font-weight: 600;
+            margin-top: 1rem;
+            text-align: center;
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <i class="fas fa-code"></i>
+                    <span>WebDev Academy</span>
+                </a>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="html.html">HTML</a>
+                    <a href="css.html" class="active">CSS</a>
+                    <a href="javascript.html">JavaScript</a>
+                    <a href="resources.html">Resources</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>CSS Styling Mastery</h1>
+            <p>Transform your web designs with professional CSS techniques and modern styling approaches</p>
+            <span class="badge"><i class="fas fa-clock"></i> Estimated time: 4 hours</span>
+        </div>
+
+        <div class="content-grid">
+            <div class="main-content">
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-paint-brush"></i> CSS Fundamentals</h2>
+                    <div class="concept-card">
+                        <h3><i class="fas fa-magic"></i> Introduction to CSS</h3>
+                        <p>Cascading Style Sheets (CSS) is used to style and layout web pages. It controls the visual presentation of HTML elements, including colors, layout, fonts, and more.</p>
+                        
+                        <div class="example-container">
+                            <div class="code-example">
+                                <div class="example-header">CSS Code</div>
+                                <div class="example-content">/* Change text color and background */
+body {
+    color: #333;
+    background: #f8f9fa;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Style headings */
+h1 {
+    color: #6a11cb;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Style buttons */
+.button {
+    background: #6a11cb;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+}</div>
+                            </div>
+                            <div class="visual-output">
+                                <h4>Styled Elements</h4>
+                                <div style="background:#f8f9fa; padding:1.5rem; border-radius:4px; color:#333;">
+                                    <h1 style="color:#6a11cb; font-size:2.5rem; margin-bottom:1rem;">Styled Heading</h1>
+                                    <p style="margin-bottom:1rem;">This text is styled with CSS properties.</p>
+                                    <a href="#" style="background:#6a11cb; color:white; padding:0.8rem 1.5rem; border-radius:4px; text-decoration:none; display:inline-block;">Styled Button</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <h3><i class="fas fa-bullseye"></i> Selectors and Specificity</h3>
+                        <p>CSS selectors target HTML elements to apply styles. Specificity determines which styles take precedence when multiple rules apply to the same element.</p>
+                        
+                        <div class="visualizer">
+                            <div class="visual-box">
+                                <h4>Element Selector</h4>
+                                <div class="demo-box" id="element-selector">Element</div>
+                                <p><span class="css-property">p { color: red; }</span></p>
+                            </div>
+                            <div class="visual-box">
+                                <h4>Class Selector</h4>
+                                <div class="demo-box highlight" id="class-selector">.class</div>
+                                <p><span class="css-property">.highlight { background: gold; }</span></p>
+                            </div>
+                            <div class="visual-box">
+                                <h4>ID Selector</h4>
+                                <div class="demo-box" id="id-selector">#id</div>
+                                <p><span class="css-property">#special { border: 3px solid green; }</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-cube"></i> Box Model & Layout</h2>
+                    <div class="concept-card">
+                        <h3><i class="fas fa-border-style"></i> The Box Model</h3>
+                        <p>Every element is a rectangular box with content, padding, border, and margin properties.</p>
+                        
+                        <div class="example-container">
+                            <div class="code-example">
+                                <div class="example-header">CSS Code</div>
+                                <div class="example-content">.box {
+    width: 300px;
+    padding: 20px;
+    border: 3px solid #6a11cb;
+    margin: 30px;
+    background: #f0f0f0;
+}</div>
+                            </div>
+                            <div class="visual-output">
+                                <h4>Box Model Visualization</h4>
+                                <div style="margin:30px; background:#f0f0f0; width:300px; padding:20px; border:3px solid #6a11cb; position:relative;">
+                                    <div style="background:rgba(106,17,203,0.1); padding:10px; text-align:center;">
+                                        Content
+                                    </div>
+                                    <div style="position:absolute; top:-30px; left:-3px; color:#6a11cb;">Margin</div>
+                                    <div style="position:absolute; top:-15px; left:10px; color:#ff6b6b;">Border</div>
+                                    <div style="position:absolute; top:5px; left:10px; color:#1dd1a1;">Padding</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+    <h2 class="section-title"><i class="fas fa-arrows-alt"></i> CSS Positioning</h2>
+    <div class="concept-card">
+        <h3><i class="fas fa-crosshairs"></i> Position Property</h3>
+        <p>Control the placement of elements using <span class="css-property">position</span> values: <b>static</b>, <b>relative</b>, <b>absolute</b>, <b>fixed</b>, and <b>sticky</b>.</p>
+        <div class="example-container">
+            <div class="code-example">
+                <div class="example-header">CSS Code</div>
+                <div class="example-content">
+.box {
+  position: absolute;
+  top: 40px;
+  left: 60px;
+}
+                </div>
+            </div>
+            <div class="visual-output">
+                <h4>Positioned Box</h4>
+                <div style="position:relative; height:100px; background:#f0f0f0;">
+                    <div style="position:absolute; top:40px; left:60px; width:80px; height:40px; background:#6a11cb; color:white; display:flex;align-items:center;justify-content:center;border-radius:6px;">Box</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title"><i class="fas fa-layer-group"></i> Z-Index & Stacking Context</h2>
+    <div class="concept-card">
+        <h3><i class="fas fa-sort-amount-up"></i> Layering Elements</h3>
+        <p>Use <span class="css-property">z-index</span> to control the stacking order of positioned elements.</p>
+        <div class="example-container">
+            <div class="code-example">
+                <div class="example-header">CSS Code</div>
+                <div class="example-content">
+.box1 { position: absolute; left: 30px; top: 30px; z-index: 2; }
+.box2 { position: absolute; left: 60px; top: 60px; z-index: 1; }
+                </div>
+            </div>
+            <div class="visual-output">
+                <h4>Stacking Example</h4>
+                <div style="position:relative; height:120px;">
+                    <div style="position:absolute; left:30px; top:30px; width:70px; height:70px; background:#6a11cb; color:white; display:flex;align-items:center;justify-content:center;z-index:2;border-radius:6px;">Box 1</div>
+                    <div style="position:absolute; left:60px; top:60px; width:70px; height:70px; background:#ff6b6b; color:white; display:flex;align-items:center;justify-content:center;z-index:1;border-radius:6px;">Box 2</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title"><i class="fas fa-ruler-combined"></i> CSS Units & Sizing</h2>
+    <div class="concept-card">
+        <h3><i class="fas fa-ruler"></i> Absolute & Relative Units</h3>
+        <p>Use units like <b>px</b>, <b>em</b>, <b>rem</b>, <b>%</b>, <b>vw</b>, and <b>vh</b> to size elements responsively.</p>
+        <div class="example-container">
+            <div class="code-example">
+                <div class="example-header">CSS Code</div>
+                <div class="example-content">
+.box { width: 50vw; height: 10vh; font-size: 2em; }
+                </div>
+            </div>
+            <div class="visual-output">
+                <h4>Units Example</h4>
+                <div style="width:50vw; height:10vh; background:#2575fc; color:white; display:flex;align-items:center;justify-content:center; font-size:2em; border-radius:6px;">Responsive Box</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title"><i class="fas fa-function"></i> CSS Functions</h2>
+    <div class="concept-card">
+        <h3><i class="fas fa-calculator"></i> calc(), var(), clamp()</h3>
+        <p>Functions like <span class="css-property">calc()</span>, <span class="css-property">var()</span>, and <span class="css-property">clamp()</span> allow for dynamic and flexible values.</p>
+        <div class="example-container">
+            <div class="code-example">
+                <div class="example-header">CSS Code</div>
+                <div class="example-content">
+.box {
+  width: calc(100% - 40px);
+  font-size: clamp(1rem, 2vw, 2rem);
+  color: var(--accent);
+}
+                </div>
+            </div>
+            <div class="visual-output">
+                <h4>Function Example</h4>
+                <div style="width:calc(100% - 40px); font-size:clamp(1rem,2vw,2rem); color:#ff6b6b; background:#f0f0f0; padding:1rem; border-radius:6px;">Flexible Box</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title"><i class="fas fa-adjust"></i> CSS Filters & Blend Modes</h2>
+    <div class="concept-card">
+        <h3><i class="fas fa-tint"></i> Visual Effects</h3>
+        <p>Use <span class="css-property">filter</span> for blur, brightness, and more. <span class="css-property">mix-blend-mode</span> blends elements together.</p>
+        <div class="example-container">
+            <div class="code-example">
+                <div class="example-header">CSS Code</div>
+                <div class="example-content">
+img {
+  filter: grayscale(100%) blur(2px);
+  mix-blend-mode: multiply;
+}
+                </div>
+            </div>
+            <div class="visual-output">
+                <h4>Filter Example</h4>
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=facearea&w=200&q=80" alt="Sample" style="width:120px;filter:grayscale(100%) blur(2px);mix-blend-mode:multiply;border-radius:8px;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title"><i class="fas fa-shapes"></i> CSS Shapes & Clip-Path</h2>
+    <div class="concept-card">
+        <h3><i class="fas fa-crop-alt"></i> Custom Shapes</h3>
+        <p>Create non-rectangular shapes using <span class="css-property">clip-path</span> and <span class="css-property">shape-outside</span>.</p>
+        <div class="example-container">
+            <div class="code-example">
+                <div class="example-header">CSS Code</div>
+                <div class="example-content">
+.shape {
+  clip-path: circle(50% at 50% 50%);
+  width: 120px;
+  height: 120px;
+  background: #6a11cb;
+}
+                </div>
+            </div>
+            <div class="visual-output">
+                <h4>Clip-Path Example</h4>
+                <div style="clip-path:circle(50% at 50% 50%);width:120px;height:120px;background:#6a11cb;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title"><i class="fas fa-italic"></i> CSS Pseudo-classes & Pseudo-elements</h2>
+    <div class="concept-card">
+        <h3><i class="fas fa-mouse-pointer"></i> :hover, :before, :after</h3>
+        <p>Pseudo-classes and pseudo-elements let you style elements based on state or add decorative content.</p>
+        <div class="example-container">
+            <div class="code-example">
+                <div class="example-header">CSS Code</div>
+                <div class="example-content">
+.button:hover {
+  background: #ff6b6b;
+}
+.button::after {
+  content: " →";
+}
+                </div>
+            </div>
+            <div class="visual-output">
+                <h4>Pseudo Example</h4>
+                <button class="button" style="background:#6a11cb;color:white;padding:0.8rem 1.5rem;border-radius:4px;">Hover Me →</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title"><i class="fas fa-print"></i> CSS Print Styles</h2>
+    <div class="concept-card">
+        <h3><i class="fas fa-print"></i> Print Media Queries</h3>
+        <p>Use <span class="css-property">@media print</span> to style your pages for printing.</p>
+        <div class="example-container">
+            <div class="code-example">
+                <div class="example-header">CSS Code</div>
+                <div class="example-content">
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  .sidebar, nav, footer {
+    display: none;
+  }
+}
+                </div>
+            </div>
+            <div class="visual-output">
+                <h4>Print Preview</h4>
+                <div style="background:white;color:black;padding:1rem;border-radius:6px;">This area will look clean when printed!</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title"><i class="fas fa-cogs"></i> CSS Frameworks & Preprocessors</h2>
+    <div class="concept-card">
+        <h3><i class="fab fa-sass"></i> Sass, Less, Bootstrap, Tailwind</h3>
+        <p>Frameworks and preprocessors speed up development and add features like variables, nesting, and mixins.</p>
+        <div class="example-container">
+            <div class="code-example">
+                <div class="example-header">Sass Example</div>
+                <div class="example-content">
+$primary: #6a11cb;
+.button {
+  background: $primary;
+  color: white;
+}
+                </div>
+            </div>
+            <div class="visual-output">
+                <h4>Framework Example</h4>
+                <span style="background:#6a11cb;color:white;padding:0.8rem 1.5rem;border-radius:4px;">Sass Button</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+                    <div class="concept-card">
+                        <h3><i class="fas fa-th"></i> Flexbox Layout</h3>
+                        <p>Flexbox is a one-dimensional layout model that provides efficient ways to align and distribute space among items in a container.</p>
+                        
+                        <div class="visualizer">
+                            <div class="visual-box">
+                                <h4>Flex Direction</h4>
+                                <div class="flex-container" id="flex-direction">
+                                    <div class="flex-item">1</div>
+                                    <div class="flex-item">2</div>
+                                    <div class="flex-item">3</div>
+                                </div>
+                                <div class="controls">
+                                    <div class="control-group">
+                                        <label>Direction</label>
+                                        <select id="direction-select">
+                                            <option value="row">Row</option>
+                                            <option value="row-reverse">Row Reverse</option>
+                                            <option value="column">Column</option>
+                                            <option value="column-reverse">Column Reverse</option>
+                                        </select>
+                                    </div>
+                                    <div class="control-group">
+                                        <label>Justify Content</label>
+                                        <select id="justify-select">
+                                            <option value="flex-start">Flex Start</option>
+                                            <option value="flex-end">Flex End</option>
+                                            <option value="center">Center</option>
+                                            <option value="space-between">Space Between</option>
+                                            <option value="space-around">Space Around</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-palette"></i> Visual Effects</h2>
+                    <div class="concept-card">
+                        <h3><i class="fas fa-fill-drip"></i> Colors and Gradients</h3>
+                        <p>CSS provides multiple ways to specify colors and create gradient backgrounds.</p>
+                        
+                        <div class="visualizer">
+                            <div class="visual-box">
+                                <h4>Color Formats</h4>
+                                <div class="color-box" style="background: #6a11cb;" id="hex-color">HEX: #6a11cb</div>
+                                <div class="color-box" style="background: rgb(106, 17, 203);" id="rgb-color">RGB: rgb(106, 17, 203)</div>
+                                <div class="color-box" style="background: hsl(266, 85%, 43%);" id="hsl-color">HSL: hsl(266, 85%, 43%)</div>
+                            </div>
+                            <div class="visual-box">
+                                <h4>Gradients</h4>
+                                <div class="gradient-box" style="background: linear-gradient(45deg, #6a11cb, #2575fc);" id="linear-gradient">Linear Gradient</div>
+                                <div class="gradient-box" style="background: radial-gradient(circle, #6a11cb, #2575fc);" id="radial-gradient">Radial Gradient</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="concept-card">
+                        <h3><i class="fas fa-magic"></i> Transitions and Animations</h3>
+                        <p>CSS transitions and animations create smooth visual effects and interactions.</p>
+                        
+                        <div class="visualizer">
+                            <div class="visual-box">
+                                <h4>Hover Transition</h4>
+                                <div class="demo-box" id="transition-box">Hover Me</div>
+                                <p><span class="css-property">transition: all 0.3s ease;</span></p>
+                            </div>
+                            <div class="visual-box">
+                                <h4>Keyframe Animation</h4>
+                                <div class="demo-box" id="animation-box">Pulse</div>
+                                <p><span class="css-property">animation: pulse 2s infinite;</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-mobile-alt"></i> Responsive Design</h2>
+                    <div class="concept-card">
+                        <h3><i class="fas fa-ruler-combined"></i> Media Queries</h3>
+                        <p>Media queries apply CSS rules based on device characteristics like screen width.</p>
+                        
+                        <div class="example-container">
+                            <div class="code-example">
+                                <div class="example-header">CSS Code</div>
+                                <div class="example-content">/* Mobile styles (default) */
+.container {
+    padding: 1rem;
+}
+
+/* Tablet styles */
+@media (min-width: 768px) {
+    .container {
+        padding: 2rem;
+        max-width: 720px;
+    }
+}
+
+/* Desktop styles */
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}</div>
+                            </div>
+                            <div class="visual-output">
+                                <h4>Responsive Behavior</h4>
+                                <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+                                    <div style="background:#f0f0f0; border-radius:4px; padding:1rem; text-align:center; flex:1; min-width:150px;">
+                                        <i class="fas fa-mobile-alt" style="font-size:2rem; margin-bottom:0.5rem;"></i>
+                                        <p>Mobile</p>
+                                        <p>&lt; 768px</p>
+                                    </div>
+                                    <div style="background:#f0f0f0; border-radius:4px; padding:1rem; text-align:center; flex:1; min-width:150px;">
+                                        <i class="fas fa-tablet-alt" style="font-size:2rem; margin-bottom:0.5rem;"></i>
+                                        <p>Tablet</p>
+                                        <p>768px - 992px</p>
+                                    </div>
+                                    <div style="background:#f0f0f0; border-radius:4px; padding:1rem; text-align:center; flex:1; min-width:150px;">
+                                        <i class="fas fa-laptop" style="font-size:2rem; margin-bottom:0.5rem;"></i>
+                                        <p>Desktop</p>
+                                        <p>&gt; 992px</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-question-circle"></i> CSS Challenge</h2>
+                    <div class="quiz-container">
+                        <div class="quiz-question">1. Which property is used to change the background color of an element?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-answer="background-color">background-color</div>
+                            <div class="quiz-option" data-answer="color">color</div>
+                            <div class="quiz-option" data-answer="bgcolor">bgcolor</div>
+                            <div class="quiz-option" data-answer="background">background</div>
+                        </div>
+                        <div class="quiz-feedback">
+                            <p><strong>Explanation:</strong> The background-color property specifies the background color of an element.</p>
+                        </div>
+                    </div>
+
+                    <div class="quiz-container">
+                        <div class="quiz-question">2. Which display property value creates a flex container?</div>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-answer="flex">flex</div>
+                            <div class="quiz-option" data-answer="block">block</div>
+                            <div class="quiz-option" data-answer="inline">inline</div>
+                            <div class="quiz-option" data-answer="grid">grid</div>
+                        </div>
+                        <div class="quiz-feedback">
+                            <p><strong>Explanation:</strong> Setting display: flex; creates a flex container and enables flex context for its children.</p>
+                        </div>
+                    </div>
+
+                    <div class="quiz-result">
+                        <p>You scored <span id="quiz-score">0</span> out of 2!</p>
+                        <button class="btn" id="retry-quiz">Try Again</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <h3 class="sidebar-title"><i class="fas fa-bookmark"></i> CSS Topics</h3>
+                <ul class="topic-list">
+                    <li><a href="#" class="active"><i class="fas fa-chevron-right"></i> CSS Fundamentals</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Selectors & Specificity</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Box Model & Layout</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> CSS Positioning</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Z-Index & Stacking Context</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> CSS Units & Sizing</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> CSS Functions</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> CSS Filters & Blend Modes</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> CSS Shapes & Clip-Path</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> CSS Pseudo-classes & Pseudo-elements</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> CSS Print Styles</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> CSS Frameworks & Preprocessors</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Flexbox & Grid</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Colors & Gradients</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Transitions & Animations</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Responsive Design</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> CSS Variables</a></li>
+                  <li><a href="#"><i class="fas fa-chevron-right"></i> Advanced Techniques</a></li>
+                </ul>
+
+                <div class="progress-container">
+                    <div class="progress-header">
+                        <span>Your Progress</span>
+                        <span>35%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 35%;"></div>
+                    </div>
+                    <button class="btn btn-block">Continue Learning</button>
+                </div>
+
+                <div style="margin-top: 1.5rem; background: rgba(0,0,0,0.3); padding:1.5rem; border-radius:var(--border-radius);">
+                    <h3 class="sidebar-title"><i class="fas fa-lightbulb"></i> CSS Tip</h3>
+                    <p>Use CSS variables to create consistent designs and make global changes easier:</p>
+                    <div class="code-example" style="margin-top:1rem;">
+                        <div class="example-content">:root {
+    --primary: #6a11cb;
+    --secondary: #2575fc;
+}
+
+.button {
+    background: var(--primary);
+}
+
+.header {
+    background: var(--secondary);
+}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="container">
+        <p>&copy; 2023 WebDev Academy. All rights reserved.</p>
+        <p>Master CSS styling with our comprehensive tutorials and interactive examples.</p>
+    </footer>
+
+    <script>
+        // Quiz functionality
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const question = this.closest('.quiz-container');
+                const options = question.querySelectorAll('.quiz-option');
+                
+                // Remove selected class from all options in this question
+                options.forEach(opt => {
+                    opt.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                
+                // Check if answer is correct (first option is always correct in this demo)
+                const correctAnswer = options[0].dataset.answer;
+                const userAnswer = this.dataset.answer;
+                
+                if(userAnswer === correctAnswer) {
+                    this.classList.add('correct');
+                    question.querySelector('.quiz-feedback').className = 'quiz-feedback feedback-correct';
+                } else {
+                    this.classList.add('incorrect');
+                    options[0].classList.add('correct');
+                    question.querySelector('.quiz-feedback').className = 'quiz-feedback feedback-incorrect';
+                }
+                
+                // Calculate score
+                updateQuizScore();
+            });
+        });
+        
+        function updateQuizScore() {
+            const correctAnswers = document.querySelectorAll('.quiz-option.correct.selected').length;
+            const totalQuestions = document.querySelectorAll('.quiz-container').length;
+            const incorrectAnswers = document.querySelectorAll('.quiz-option.incorrect').length;
+            
+            const score = correctAnswers - incorrectAnswers;
+            document.getElementById('quiz-score').textContent = Math.max(0, score);
+            
+            if((correctAnswers + incorrectAnswers) === totalQuestions) {
+                document.querySelector('.quiz-result').style.display = 'block';
+            }
+        }
+        
+        document.getElementById('retry-quiz').addEventListener('click', function() {
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            document.querySelectorAll('.quiz-feedback').forEach(feedback => {
+                feedback.className = 'quiz-feedback';
+            });
+            
+            document.querySelector('.quiz-result').style.display = 'none';
+        });
+        
+        // Progress simulation
+        document.querySelectorAll('.topic-list a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Update active link
+                document.querySelectorAll('.topic-list a').forEach(a => {
+                    a.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Update progress
+                const progressBar = document.querySelector('.progress');
+                const currentWidth = parseInt(progressBar.style.width);
+                progressBar.style.width = `${Math.min(100, currentWidth + 5)}%`;
+                
+                const progressText = document.querySelector('.progress-header span:last-child');
+                progressText.textContent = `${Math.min(100, currentWidth + 5)}%`;
+            });
+        });
+        
+        // Flexbox controls
+        const directionSelect = document.getElementById('direction-select');
+        const justifySelect = document.getElementById('justify-select');
+        const flexContainer = document.getElementById('flex-direction');
+        
+        directionSelect.addEventListener('change', function() {
+            flexContainer.style.flexDirection = this.value;
+        });
+        
+        justifySelect.addEventListener('change', function() {
+            flexContainer.style.justifyContent = this.value;
+        });
+        
+        // Transition demo
+        const transitionBox = document.getElementById('transition-box');
+        transitionBox.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.1) rotate(5deg)';
+            this.style.backgroundColor = '#ff6b6b';
+        });
+        
+        transitionBox.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1) rotate(0)';
+            this.style.backgroundColor = '#6a11cb';
+        });
+        
+        // Animation demo
+        const animationBox = document.getElementById('animation-box');
+        animationBox.style.animation = 'pulse 2s infinite';
+        
+        // Keyframe animation
+        const styleSheet = document.styleSheets[0];
+        styleSheet.insertRule(`
+            @keyframes pulse {
+                0% { transform: scale(1); background-color: #6a11cb; }
+                50% { transform: scale(1.1); background-color: #ff6b6b; }
+                100% { transform: scale(1); background-color: #6a11cb; }
+            }
+        `, styleSheet.cssRules.length);
+    </script>
+    <button id="liveCodeBtn" title="Open Live Code Editor"
+  style="position:fixed;bottom:32px;right:32px;z-index:9999;background:var(--primary);color:white;border:none;border-radius:50px;padding:1rem 2.2rem;font-size:1.1rem;font-weight:700;box-shadow:0 6px 24px rgba(0,0,0,0.18);cursor:pointer;transition:background 0.2s;">
+  <i class="fas fa-terminal"></i> Live Code Editor
+</button>
+<script>
+document.getElementById('liveCodeBtn').onclick = function() {
+  // Open the live code editor and pass the current file name as a query parameter
+  window.open('code.html?from=css.html', '_blank');
+};
+</script>
+
+<button id="takeExamBtn" title="Take HTML Exam"
+  style="position:fixed;bottom:90px;right:32px;z-index:9999;background:var(--success);color:white;border:none;border-radius:50px;padding:1rem 2.2rem;font-size:1.1rem;font-weight:700;box-shadow:0 6px 24px rgba(0,0,0,0.18);cursor:pointer;transition:background 0.2s;">
+  <i class="fas fa-clipboard-check"></i> Take Exam
+</button>
+<script>
+document.getElementById('takeExamBtn').onclick = function() {
+  window.open('css_exam.html', '_blank');
+};
+</script>
+
+</body>
+</html>

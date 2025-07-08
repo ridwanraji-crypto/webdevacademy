@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - WebDev Academy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --success: #2ec4b6;
+            --warning: #ff9f1c;
+            --danger: #e71d36;
+            --dark: #1a1c23;
+            --darker: #0f1120;
+            --light: #f8f9fa;
+            --border-radius: 12px;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f0f2f5, #e4e7eb);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 8px 15px;
+            border-radius: 30px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #4361ee, #3a0ca3);
+            color: white;
+            margin-bottom: 50px;
+            border-radius: 0 0 30px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(76, 201, 240, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(46, 196, 182, 0.1) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .search-bar button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-bar button:hover {
+            background: #3fb4d8;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 20px auto 0;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .resource-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .resource-header {
+            height: 180px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resource-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .resource-card:hover .resource-header img {
+            transform: scale(1.05);
+        }
+
+        .resource-type {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .resource-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .resource-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .resource-content p {
+            color: #666;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .resource-stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .resource-stats div {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .resource-card .btn {
+            display: block;
+            text-align: center;
+            background: var(--primary);
+            color: white;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .resource-card .btn:hover {
+            background: var(--secondary);
+        }
+
+        .btn-outline {
+            background: transparent !important;
+            border: 2px solid var(--primary) !important;
+            color: var(--primary) !important;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary) !important;
+            color: white !important;
+        }
+
+        .cheatsheets {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .cheatsheet-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .cheatsheet-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .cheatsheet-card i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .cheatsheet-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .cheatsheet-card p {
+            color: #666;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .cheatsheet-card a.btn,
+        .cheatsheet-card a.btn.btn-outline {
+            font-size: 1.08rem;
+            padding: 0.7rem 2.8rem;
+            min-width: 180px;
+            text-align: center;
+            margin: 1.2rem auto 0 auto;
+            display: block;
+        }
+
+        .toolkit {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 60px;
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .tool-card {
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            background: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .tool-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .tool-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .tool-card a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .tool-card a:hover {
+            text-decoration: underline;
+        }
+
+        .newsletter {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            padding: 60px 40px;
+            border-radius: var(--border-radius);
+            color: white;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .newsletter-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .newsletter h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .newsletter p {
+            opacity: 0.9;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-form button:hover {
+            background: #3fb4d8;
+        }
+
+        footer {
+            background: var(--darker);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .resources-grid, .cheatsheets, .tool-grid, .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <i class="fas fa-code"></i>
+                    <span>WebDev Academy</span>
+                </a>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="courses.html">Courses</a>
+                    <a href="resources.html" class="active">Resources</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Developer Resources</h1>
+            <p>Essential tools, cheatsheets, and references to accelerate your web development journey</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="section-title">
+            <h2>Featured Resources</h2>
+            <p>Hand-picked tools and references to boost your productivity</p>
+        </div>
+
+        <div class="resources-grid">
+            <!-- HTML Cheatsheet -->
+            <div class="resource-card">
+                <div class="resource-header">
+                    <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="HTML Cheatsheet">
+                    <span class="resource-type">Cheatsheet</span>
+                </div>
+                <div class="resource-content">
+                    <h3>HTML5 Cheatsheet</h3>
+                    <p>Comprehensive reference for all HTML tags, attributes, and semantic elements. Perfect for quick lookup during development.</p>
+                    <div class="resource-stats">
+                        <div><i class="fas fa-file-alt"></i> PDF Download</div>
+                        <div><i class="fas fa-download"></i> 12,543</div>
+                    </div>
+                    <a href="https://johndecember.com/html/spec/HTML5-Cheat-Sheet.pdf" class="btn">Download Cheatsheet</a>
+                </div>
+            </div>
+            
+            <!-- CSS Flexbox Guide -->
+            <div class="resource-card">
+                <div class="resource-header">
+                    <img src="https://images.unsplash.com/photo-1523437113738-bbd3cc89fb19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="CSS Flexbox">
+                    <span class="resource-type">Guide</span>
+                </div>
+                <div class="resource-content">
+                    <h3>CSS Flexbox Visual Guide</h3>
+                    <p>Interactive guide to mastering CSS Flexbox with visual examples and interactive demos. Learn layout techniques quickly.</p>
+                    <div class="resource-stats">
+                        <div><i class="fas fa-globe"></i> Interactive</div>
+                        <div><i class="fas fa-eye"></i> 34,890</div>
+                    </div>
+                    <a href="c.html" class="btn">View Guide</a>
+                </div>
+            </div>
+            
+            <!-- JavaScript Reference -->
+            <div class="resource-card">
+                <div class="resource-header">
+                    <img src="https://images.unsplash.com/photo-1579403124614-197f69d8187b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80" alt="JavaScript Reference">
+                    <span class="resource-type">Reference</span>
+                </div>
+                <div class="resource-content">
+                    <h3>JavaScript ES6+ Reference</h3>
+                    <p>Complete reference for modern JavaScript features including arrow functions, promises, async/await, and more.</p>
+                    <div class="resource-stats">
+                        <div><i class="fas fa-book"></i> Online Book</div>
+                        <div><i class="fas fa-bookmark"></i> 24,671</div>
+                    </div>
+                    <a href="https://medium.com/@rational_cardinal_ant_861/modern-javascript-es6-23afbe58012b" class="btn">Read Reference</a>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="newsletter">
+            <div class="newsletter-content">
+                <h2>Stay Updated</h2>
+                <p>Subscribe to our newsletter to receive new resources, tutorials, and web development tips directly to your inbox.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            
+            <div class="copyright">
+                <p>&copy; 2025 WebDev Academy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
